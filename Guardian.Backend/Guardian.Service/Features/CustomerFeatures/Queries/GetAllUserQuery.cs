@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Guardian.Service.Features.CustomerFeatures.Queries
 {
-    public class GetAllCustomerQuery : IRequest<IEnumerable<Customer>>
+    public class GetAllUserQuery : IRequest<IEnumerable<User>>
     {
 
-        public class GetAllCustomerQueryHandler : IRequestHandler<GetAllCustomerQuery, IEnumerable<Customer>>
+        public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, IEnumerable<User>>
         {
             private readonly IApplicationDbContext _context;
-            public GetAllCustomerQueryHandler(IApplicationDbContext context)
+            public GetAllUserQueryHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<IEnumerable<Customer>> Handle(GetAllCustomerQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<User>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
             {
-                var customerList = await _context.Customers.ToListAsync();
+                var customerList = await _context.Users.ToListAsync();
                 if (customerList == null)
                 {
                     return null;

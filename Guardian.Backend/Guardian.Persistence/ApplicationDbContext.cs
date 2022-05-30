@@ -17,15 +17,15 @@ namespace Guardian.Persistence
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Rating> Orders { get; set; }
-        public DbSet<Game> Products { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(o => new { o.OrderId, o.ProductId });
+            modelBuilder.Entity<User>().HasMany(o => o.Games);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
