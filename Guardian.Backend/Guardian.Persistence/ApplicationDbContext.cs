@@ -1,4 +1,5 @@
 ﻿using Guardian.Domain.Entities;
+using Guardian.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Guardian.Persistence
         // This constructor is used of runit testing
         public ApplicationDbContext()
         {
-
+            
         }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -25,7 +26,11 @@ namespace Guardian.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasMany(o => o.Games);
+            
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(GameEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RatingEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityTypeConfiguration).Assembly);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
