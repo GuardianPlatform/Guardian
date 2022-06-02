@@ -14,10 +14,6 @@ namespace Guardian.Persistence.EntityConfiguration
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
             builder
-                .Property(x => x.Score)
-                .IsRequired();
-
-            builder
                .Property(x => x.Score)
                .HasMaxLength(1000)
                .IsRequired();
@@ -34,7 +30,7 @@ namespace Guardian.Persistence.EntityConfiguration
                .Property(x => x.GameId)
                .IsRequired();
 
-            
+
             builder
                  .HasOne(x => x.Game)
                  .WithMany(x => x.Ratings);
