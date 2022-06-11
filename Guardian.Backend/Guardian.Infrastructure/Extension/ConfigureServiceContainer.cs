@@ -61,7 +61,7 @@ namespace Guardian.Infrastructure.Extension
                     "OpenAPISpecification",
                     new OpenApiInfo()
                     {
-                        Title = "Onion Architecture WebAPI",
+                        Title = "Guardian WebAPI",
                         Version = "1",
                         Description = "Through this API you can access customer details",
                         License = new OpenApiLicense()
