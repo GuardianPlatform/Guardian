@@ -8,9 +8,9 @@ namespace Guardian.Infrastructure.Mapping
     {
         public CustomerProfile()
         {
-            CreateMap<CustomerModel, Customer>()
+            CreateMap<UserModel, User>()
                 .ForMember(dest => dest.Id,
-                        opt => opt.MapFrom(src => src.CustomerId))
+                        opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();
         }
     }
