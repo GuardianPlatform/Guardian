@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Guardian.Service.Features.Category.Commands;
+using Guardian.Service.Features.Category.Queries;
+using Guardian.Service.Features.Product.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Guardian.Controllers
@@ -23,7 +28,8 @@ namespace Guardian.Controllers
         [HttpGet("/products/{category}")]
         public async Task<IActionResult> GetProductsForCategory(string category, int pageSize, int page)
         {
-            throw new NotImplementedException();
+            var result = await Mediator.Send(new GetAllProductsForCategoryQuery(category));
+            return Ok(result);
         }
 
         /// <summary>
@@ -33,7 +39,8 @@ namespace Guardian.Controllers
         [HttpGet("/list")]
         public async Task<IActionResult> GetList()
         {
-                await Mediator.Send()
+            var result = await Mediator.Send(new GetAllCategoriesQuery());
+            return Ok(result);
         }
 
 
@@ -42,16 +49,10 @@ namespace Guardian.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("/category")]
-        public async Task<IActionResult> Post([FromBody]string categoryName)
+        public async Task<IActionResult> Post([FromBody]CreateCategoryCommand command)
         {
-            throw new NotImplementedException();
-        }
-
-
-        [HttpGet()]
-        public async Task<IActionResult> Get()
-        {
-            throw new NotImplementedException();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

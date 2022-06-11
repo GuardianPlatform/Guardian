@@ -10,21 +10,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Service.Features.Category.Commands
 {
-    public class GetAllCategoriesQuery : IRequest<IEnumerable<Domain.Entities.Category>>
+    public class CreateCategoryCommand : IRequest<Domain.Entities.Category>
     {
-        public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuery, IEnumerable<Domain.Entities.Category>>
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
+
+        public CreateCategoryCommand(string categoryName, string description)
+        {
+            CategoryName = categoryName;
+            Description = description;
+        }
+
+        public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Domain.Entities.Category>
         {
             private readonly IApplicationDbContext _context;
-            public GetAllCategoriesQueryHandler(IApplicationDbContext context)
+            public CreateCategoryCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
 
-            public async Task<IEnumerable<Domain.Entities.Category>> Handle(GetAllCategoriesQuery request,
+            public async Task<Domain.Entities.Category> Handle(CreateCategoryCommand request,
                 CancellationToken cancellationToken)
             {
-                var customerList = await _context.Categories.ToListAsync(cancellationToken);
-                return customerList?.AsReadOnly();
+                var exist = await _context.Categories.AnyAsync(x => x.CategoryName == request.CategoryName, cancellationToken);
+                if (exist)
+                    throw new Exception("Category with given name already exists");
+
+                var category = _context.Categories.Add(new Domain.Entities.Category()
+                {
+                    CategoryName = request.CategoryName,
+                    Description = request.Description,
+                    Products = new List<Domain.Entities.Product>()
+                });
+
+                await _context.SaveChangesAsync();
+                return category.Entity;
             }
         }
     }

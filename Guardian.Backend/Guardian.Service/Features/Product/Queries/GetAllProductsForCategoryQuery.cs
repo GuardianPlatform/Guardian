@@ -12,6 +12,11 @@ namespace Guardian.Service.Features.Product.Queries
     {
         public string Category { get; set; }
 
+        public GetAllProductsForCategoryQuery(string category)
+        {
+            Category = category;
+        }
+
         public class GetAllCustomerQueryHandler : IRequestHandler<GetAllProductsForCategoryQuery, IEnumerable<Domain.Entities.Product>>
         {
             private readonly IApplicationDbContext _context;
