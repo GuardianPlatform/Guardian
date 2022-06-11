@@ -29,7 +29,7 @@ namespace Guardian
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
             Configuration = configuration;
 
-            IConfigurationBuilder builder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
             configRoot = builder.Build();
@@ -50,13 +50,16 @@ namespace Guardian
 
             services.AddAutoMapper();
 
+            services.AddEventHub();
+
             services.AddScopedServices();
 
             services.AddTransientServices();
 
             services.AddSwaggerOpenAPI();
 
-            services.AddMailSetting(Configuration);
+            services.AddMailSetting(Configuration)
+                .AddEventHubSettings(Configuration);
 
             services.AddServiceLayer();
 

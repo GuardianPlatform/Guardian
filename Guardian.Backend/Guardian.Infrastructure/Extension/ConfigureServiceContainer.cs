@@ -12,9 +12,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Reflection;
+using Guardian.Infrastructure.EventHub;
 
 namespace Guardian.Infrastructure.Extension
 {
@@ -32,14 +30,19 @@ namespace Guardian.Infrastructure.Extension
             b => b.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName)));
         }
 
-        public static void AddAutoMapper(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddAutoMapper(this IServiceCollection serviceCollection)
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new CustomerProfile());
             });
-            IMapper mapper = mappingConfig.CreateMapper();
-            serviceCollection.AddSingleton(mapper);
+            var mapper = mappingConfig.CreateMapper();
+            return serviceCollection.AddSingleton(mapper);
+        }
+
+        public static IServiceCollection AddEventHub(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection.AddSingleton(typeof(IEventHubBuilder<>), typeof(EventHubBuilder<>));
         }
 
         public static void AddScopedServices(this IServiceCollection serviceCollection)
@@ -94,10 +97,18 @@ namespace Guardian.Infrastructure.Extension
             });
         }
 
-        public static void AddMailSetting(this IServiceCollection serviceCollection,
+        public static IServiceCollection AddMailSetting(this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            return serviceCollection.Configure<MailSettings>(
+                configuration.GetSection("MailSettings"));
+        }
+
+        public static IServiceCollection AddEventHubSettings(this IServiceCollection serviceCollection,
+            IConfiguration configuration)
+        {
+            return serviceCollection.Configure<EventHubSettings>(
+                configuration.GetSection(EventHubSettings.EventHubSettingsName));
         }
 
         public static void AddController(this IServiceCollection serviceCollection)
@@ -110,7 +121,7 @@ namespace Guardian.Infrastructure.Extension
             serviceCollection.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
+                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
             });
         }
