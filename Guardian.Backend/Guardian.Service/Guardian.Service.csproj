@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Guardian.Persistence\Guardian.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Product\Commands\" />
+  </ItemGroup>
+
 </Project>
