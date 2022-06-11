@@ -19,7 +19,10 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
             }
             public async Task<int> Handle(DeleteCustomerByIdCommand request, CancellationToken cancellationToken)
             {
-                var customer = await _context.Customers.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
+                var customer = await _context.Customers
+                    .Where(a => a.Id == request.Id)
+                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
                 if (customer == null) return default;
                 _context.Customers.Remove(customer);
                 await _context.SaveChangesAsync();
