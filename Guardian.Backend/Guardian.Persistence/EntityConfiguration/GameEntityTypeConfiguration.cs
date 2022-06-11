@@ -39,7 +39,8 @@ namespace Guardian.Persistence.EntityConfiguration
 
             builder
                 .HasMany(x => x.Ratings)
-                .WithOne(x => x.Game);
+                .WithOne(x => x.Game)
+                .OnDelete(DeleteBehavior.Cascade);
                
             builder
                 .HasMany(x => x.Users)
