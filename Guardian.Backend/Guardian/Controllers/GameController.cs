@@ -11,7 +11,7 @@ using Guardian.Persistence;
 namespace Guardian.Controllers
 {
 
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Games")]
     [ApiVersion("1.0")]
