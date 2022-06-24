@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Guardian.Persistence.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220601153219_update-entities-and-add-fluent-api-validation")]
-    partial class updateentitiesandaddfluentapivalidation
+    [Migration("20220624111126_fluent-validation")]
+    partial class fluentvalidation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,7 +138,7 @@ namespace Guardian.Persistence.Migrations.Application
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(320)
-                        .HasColumnType("Email(320)");
+                        .HasColumnType("nvarchar(320)");
 
                     b.Property<string>("Login")
                         .IsRequired()

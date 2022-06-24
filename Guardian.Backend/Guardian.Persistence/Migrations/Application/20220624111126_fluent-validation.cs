@@ -2,7 +2,7 @@
 
 namespace Guardian.Persistence.Migrations.Application
 {
-    public partial class updateentitiesandaddfluentapivalidation : Migration
+    public partial class fluentvalidation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,7 +38,7 @@ namespace Guardian.Persistence.Migrations.Application
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
                 table: "Users",
-                type: "Email(320)",
+                type: "nvarchar(320)",
                 maxLength: 320,
                 nullable: false,
                 defaultValue: "",
@@ -163,7 +163,7 @@ namespace Guardian.Persistence.Migrations.Application
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "Email(320)",
+                oldType: "nvarchar(320)",
                 oldMaxLength: 320);
 
             migrationBuilder.AlterColumn<int>(

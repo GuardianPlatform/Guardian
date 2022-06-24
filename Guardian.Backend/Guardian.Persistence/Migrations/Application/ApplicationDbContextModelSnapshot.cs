@@ -136,7 +136,7 @@ namespace Guardian.Persistence.Migrations.Application
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(320)
-                        .HasColumnType("Email(320)");
+                        .HasColumnType("nvarchar(320)");
 
                     b.Property<string>("Login")
                         .IsRequired()
