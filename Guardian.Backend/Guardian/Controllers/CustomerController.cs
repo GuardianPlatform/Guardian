@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Guardian.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Customer")]
     [ApiVersion("1.0")]
