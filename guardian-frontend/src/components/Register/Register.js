@@ -9,7 +9,7 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 const NAME_REGEX = /^[a-zA-Z]+[a-zA-Z]+$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/;
 
-const REGISTER_URL = '/account/register';
+const REGISTER_URL = '/Account/register';
 
 const Register = () => {
     const userRef = useRef();

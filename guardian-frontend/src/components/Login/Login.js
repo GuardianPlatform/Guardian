@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import "./Login.css";
 
 import axios from "../../api/axios";
-const LOGIN_URL = "account/login";
+const LOGIN_URL = "Account/authenticate";
 
 const Login = () => {
 
