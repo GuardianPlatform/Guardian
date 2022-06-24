@@ -38,7 +38,7 @@ namespace Guardian.Persistence.Migrations.Application
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
                 table: "Users",
-                type: "nvarchar(320)",
+                type: "Email(320)",
                 maxLength: 320,
                 nullable: false,
                 defaultValue: "",
@@ -163,7 +163,7 @@ namespace Guardian.Persistence.Migrations.Application
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(320)",
+                oldType: "Email(320)",
                 oldMaxLength: 320);
 
             migrationBuilder.AlterColumn<int>(

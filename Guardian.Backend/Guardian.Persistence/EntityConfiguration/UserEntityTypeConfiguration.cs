@@ -14,6 +14,7 @@ namespace Guardian.Persistence.EntityConfiguration
         {
             builder
                 .Property(x => x.Email)
+                .HasColumnType("Email")
                 .HasMaxLength(320)
                 .IsRequired();
 
