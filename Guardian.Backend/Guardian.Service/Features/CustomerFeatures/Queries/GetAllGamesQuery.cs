@@ -12,7 +12,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
 {
     public class GetAllGamesQuery : IRequest<IEnumerable<Game>>
     {
-        public PagiantionParams Pagiantion { get; set; }
+        public PagiantionModel Pagiantion { get; set; }
 
         public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, IEnumerable<Game>>
         {
