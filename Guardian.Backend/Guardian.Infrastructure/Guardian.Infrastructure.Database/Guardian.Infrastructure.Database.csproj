@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Guardian.Service.Identity\Guardian.Service.Identity.csproj" />
+    <ProjectReference Include="..\..\Guardian.Domain\Guardian.Domain.csproj" />
   </ItemGroup>
 
 </Project>
