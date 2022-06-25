@@ -20,7 +20,6 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
             public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
             {
                 var customer = _context.Users.FirstOrDefault(a => a.Id == request.Id);
-                if (customer == null) return null;
                 return customer;
             }
         }

@@ -27,6 +27,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
 
                 _context.Users.Add(customer);
                 await _context.SaveChangesAsync();
+
                 return customer.Id;
             }
         }
