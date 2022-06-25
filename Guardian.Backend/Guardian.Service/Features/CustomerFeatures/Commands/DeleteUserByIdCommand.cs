@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Guardian.Service.Features.CustomerFeatures.Commands
 {
-    public class DeleteCustomerByIdCommand : IRequest<int>
+    public class DeleteUserByIdCommand : IRequest<int>
     {
         public int Id { get; set; }
-        public class DeleteCustomerByIdCommandHandler : IRequestHandler<DeleteCustomerByIdCommand, int>
+        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, int>
         {
             private readonly IApplicationDbContext _context;
-            public DeleteCustomerByIdCommandHandler(IApplicationDbContext context)
+            public DeleteUserByIdCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(DeleteCustomerByIdCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
             {
-                var customer = await _context.Customers.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
+                var customer = await _context.Users.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
                 if (customer == null) return default;
-                _context.Customers.Remove(customer);
+                _context.Users.Remove(customer);
                 await _context.SaveChangesAsync();
                 return customer.Id;
             }

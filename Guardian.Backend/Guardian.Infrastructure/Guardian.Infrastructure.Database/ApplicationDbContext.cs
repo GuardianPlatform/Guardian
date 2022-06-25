@@ -1,14 +1,16 @@
 ﻿using Guardian.Domain.Entities;
+using Guardian.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace Guardian.Infrastructure.Database
+namespace Guardian.Persistence
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
+        // This constructor is used of runit testing
         public ApplicationDbContext()
         {
-
+            
         }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -16,16 +18,15 @@ namespace Guardian.Infrastructure.Database
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            modelBuilder.Entity<OrderDetail>().HasKey(o => new { o.OrderId, o.ProductId });
+        { 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityTypeConfiguration).Assembly);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
