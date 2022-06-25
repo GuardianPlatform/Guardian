@@ -3,6 +3,7 @@ using Guardian.Persistence;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
 
 namespace Guardian.Service.Features.CustomerFeatures.Commands
 {

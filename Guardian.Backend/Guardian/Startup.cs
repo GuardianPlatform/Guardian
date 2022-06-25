@@ -1,8 +1,5 @@
 using Guardian.Domain.Settings;
-using Guardian.Infrastructure.Extension;
-using Guardian.Persistence;
 using Guardian.Service;
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -13,9 +10,10 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
-using Serilog;
-using System;
 using System.IO;
+using Guardian.Infrastructure.Extension;
+using HealthChecks.UI.Client;
+using Serilog;
 
 namespace Guardian
 {

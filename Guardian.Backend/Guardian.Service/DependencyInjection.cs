@@ -2,8 +2,6 @@
 using Guardian.Domain.Settings;
 using Guardian.Infrastructure.Database;
 using Guardian.Service.Contract;
-using Guardian.Service.Identity;
-using Guardian.Service.Implementation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +14,9 @@ using Newtonsoft.Json;
 using System;
 using System.Reflection;
 using System.Text;
+using Guardian.Domain.Entities;
+using Guardian.Infrastructure.Email;
+using Guardian.Service.Implementation;
 
 namespace Guardian.Service
 {
@@ -25,7 +26,7 @@ namespace Guardian.Service
         {
             // or you can use assembly in Extension method in Infra layer with below command
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddTransient<IEmailService, MailService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         public static void AddIdentityService(this IServiceCollection services, IConfiguration configuration)

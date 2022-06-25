@@ -1,7 +1,7 @@
 ﻿using Guardian.Domain.Settings;
-using Guardian.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Email;
 
 namespace Guardian.Controllers
 {

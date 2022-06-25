@@ -1,9 +1,9 @@
-﻿using Guardian.Domain.Entities;
+﻿using System.Threading.Tasks;
+using Guardian.Domain.Entities;
 using Guardian.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
-namespace Guardian.Persistence
+namespace Guardian.Infrastructure.Database
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {

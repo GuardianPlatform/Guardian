@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
 
 namespace Guardian.Service.Features.CustomerFeatures.Queries
 {

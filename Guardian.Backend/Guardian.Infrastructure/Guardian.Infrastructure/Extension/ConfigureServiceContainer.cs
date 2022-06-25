@@ -2,9 +2,7 @@
 using Guardian.Domain.Settings;
 using Guardian.Infrastructure.Database;
 using Guardian.Infrastructure.EventHub;
-using Guardian.Infrastructure.Mapping;
 using Guardian.Service.Contract;
-using Guardian.Service.Identity;
 using Guardian.Service.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,8 +35,9 @@ namespace Guardian.Infrastructure.Extension
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new CustomerProfile());
+                //mc.AddProfile(new MappingProfile());
             });
+            
             var mapper = mappingConfig.CreateMapper();
             return serviceCollection.AddSingleton(mapper);
         }

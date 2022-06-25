@@ -1,4 +1,5 @@
 ﻿using Guardian.Domain.Entities;
+using Guardian.Infrastructure.Database;
 using Guardian.Persistence;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
