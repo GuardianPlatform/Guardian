@@ -1,5 +1,4 @@
-﻿
-namespace Guardian.Service.Contract
+﻿namespace Guardian.Service.Contract
 {
     public interface IAuthenticatedUserService
     {

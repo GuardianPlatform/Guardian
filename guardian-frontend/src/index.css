@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+}
+
+
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h1 {
+  align-self: center;
+  font-weight: bold;
+  margin-bottom: 1vh ;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+a, a:visited {
+  color: #38b6ff;
+  text-decoration: none;
+}
+
+button>a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  color: #333;
+  background-color: #fff;
+  border: 2px solid #333;
+
+
+}
+
+button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  width: 100px;
+  height: 50%;
+  align-self: center;
+  background-color: #333;
+  border: 2px solid #ffffff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 50%;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+.note {
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #BE1C1F;
+  color: #fff;
+  padding: 0.25rem;
+  margin-bottom: 0!important;
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+
+.valid {
+  color: green;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: #BE1C1F;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color:  rgba(190,28,31,0.3);
+  color: rgb(190,28,31);
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+
+}
+
+.line {
+  display: inline-block;
+}

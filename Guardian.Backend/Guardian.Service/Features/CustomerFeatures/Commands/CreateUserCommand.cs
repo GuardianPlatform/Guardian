@@ -3,22 +3,23 @@ using Guardian.Persistence;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
 
 namespace Guardian.Service.Features.CustomerFeatures.Commands
 {
-    public class CreateUserCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<string>
     {
         public string Email { get; set; }
         public string Login { get; set; }
         
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
         {
             private readonly IApplicationDbContext _context;
             public CreateUserCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var customer = new User();
                 customer.Email = request.Email;

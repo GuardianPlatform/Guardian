@@ -1,8 +1,5 @@
 using Guardian.Domain.Settings;
-using Guardian.Infrastructure.Extension;
-using Guardian.Persistence;
 using Guardian.Service;
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -13,9 +10,10 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
-using Serilog;
-using System;
 using System.IO;
+using Guardian.Infrastructure.Extension;
+using HealthChecks.UI.Client;
+using Serilog;
 
 namespace Guardian
 {
@@ -29,7 +27,7 @@ namespace Guardian
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
             Configuration = configuration;
 
-            IConfigurationBuilder builder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
             configRoot = builder.Build();
@@ -42,29 +40,40 @@ namespace Guardian
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddController();
+           services.AddController();
 
-            services.AddDbContext(Configuration, configRoot);
+           services.AddDbContext(Configuration, configRoot);
 
-            services.AddIdentityService(Configuration);
+           services.AddIdentityService(Configuration);
 
-            services.AddAutoMapper();
+           services.AddAutoMapper();
+
+            services.AddEventHub();
 
             services.AddScopedServices();
 
-            services.AddTransientServices();
+           services.AddTransientServices();
 
-            services.AddSwaggerOpenAPI();
+           services.AddSwaggerOpenAPI();
 
-            services.AddMailSetting(Configuration);
+            services.AddMailSetting(Configuration)
+                .AddEventHubSettings(Configuration);
 
-            services.AddServiceLayer();
+           services.AddServiceLayer();
 
-            services.AddVersion();
+           services.AddVersion();
 
-            services.AddHealthCheck(AppSettings, Configuration);
+           services.AddHealthCheck(AppSettings, Configuration);
 
-            services.AddFeatureManagement();
+           services.AddFeatureManagement();
+
+           services.AddCors(options =>
+              options.AddPolicy("CorsPolicy", builder =>
+                builder.SetIsOriginAllowed(origin => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                ));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
@@ -74,10 +83,7 @@ namespace Guardian
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(options =>
-                 options.WithOrigins("http://localhost:3000")
-                 .AllowAnyHeader()
-                 .AllowAnyMethod());
+            app.UseCors("CorsPolicy");
 
             app.ConfigureCustomExceptionMiddleware();
 
