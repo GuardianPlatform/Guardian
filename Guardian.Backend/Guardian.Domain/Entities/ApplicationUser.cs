@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using Guardian.Domain.Models;
 
 namespace Guardian.Domain.Entities
 {

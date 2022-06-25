@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Guardian.Service.Contract\Guardian.Service.Contract.csproj" />
     <ProjectReference Include="..\Guardian.Domain\Guardian.Domain.csproj" />
     <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.Database\Guardian.Infrastructure.Database.csproj" />
   </ItemGroup>

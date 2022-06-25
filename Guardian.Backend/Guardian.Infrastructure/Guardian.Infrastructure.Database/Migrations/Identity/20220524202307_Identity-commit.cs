@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Guardian.Persistence.Migrations.Identity
+namespace Guardian.Infrastructure.Database.Migrations.Identity
 {
     public partial class Identitycommit : Migration
     {

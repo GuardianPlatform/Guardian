@@ -1,5 +1,6 @@
 ﻿using Guardian.Domain.Common;
-using Guardian.Service.Identity.Auth;
+using Guardian.Service.Request;
+using Guardian.Service.Response;
 using System.Threading.Tasks;
 
 namespace Guardian.Service.Contract

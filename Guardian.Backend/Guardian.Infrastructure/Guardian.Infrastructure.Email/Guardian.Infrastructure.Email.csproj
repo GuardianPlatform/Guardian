@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Guardian.Backend\Guardian.Domain\Guardian.Domain.csproj" />
-    <ProjectReference Include="..\Guardian.Service.Contract\Guardian.Service.Contract.csproj" />
+    <ProjectReference Include="..\..\Guardian.Domain\Guardian.Domain.csproj" />
   </ItemGroup>
 
 </Project>

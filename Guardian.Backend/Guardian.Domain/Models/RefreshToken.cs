@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Guardian.Service.Models
+namespace Guardian.Domain.Models
 {
     public class RefreshToken
     {
