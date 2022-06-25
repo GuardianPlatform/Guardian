@@ -19,6 +19,9 @@ const Register = () => {
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
+    const [userName, setUserName] = useState('');
+    const [userNameFocus, setUserNameFocus] = useState(false);
+
     const [firstName, setFirstName] = useState('');
     const [validFirstName, setValidFirstName] = useState('');
     const [firstNameFocus, setFirstNameFocus] = useState('');
@@ -76,7 +79,7 @@ const Register = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [email, firstName, lastName, password, confirmPassword])
+    }, [email, userName, firstName, lastName, password, confirmPassword])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -90,7 +93,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({email, firstName, lastName, password, confirmPassword}),
+                JSON.stringify({email, userName, firstName, lastName, password, confirmPassword}),
                 {
                     headers: {'Content-Type' : 'application/json'},
                     withCredentials: true
@@ -101,6 +104,7 @@ const Register = () => {
             console.log(JSON.stringify(response))
             setSuccess(true);
             setEmail('');
+            setUserName('');
             setFirstName('');
             setLastName('');
             setPassword('');
@@ -152,10 +156,20 @@ const Register = () => {
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
                         />
-                        <p id="uidnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
-                            That must be an email adress.
-                        </p>
+                        <label htmlFor="userName">
+                            User Name:
+                        </label>
+                        <input
+                            type="text"
+                            id="userName"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setUserName(e.target.value)}
+                            required
+                            aria-describedby="namenote"
+                            onFocus={() => setUserNameFocus(true)}
+                            onBlur={() => setUserNameFocus(false)}
+                        />
 
                         <label htmlFor="firstName">
                             First Name:
