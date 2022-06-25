@@ -10,8 +10,8 @@ services:
       - broker
       - zookeeper
 
-  #Kafka KRaft compose
-  zookeep:
+#Kafka KRaft compose
+  zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
     environment:
@@ -25,11 +25,6 @@ services:
     # To learn about configuring Kafka for access across networks see
     # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
       - "9092:9092"
-    volumes:
-      - "kafka_data:/bitnami"
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
     environment:

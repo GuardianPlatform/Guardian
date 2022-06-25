@@ -9,7 +9,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
 {
     public class GetUserByIdQuery : IRequest<User>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, User>
         {
             private readonly IApplicationDbContext _context;
@@ -19,7 +19,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
             }
             public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
             {
-                var customer = _context.Users.Where(a => a.Id == request.Id).FirstOrDefault();
+                var customer = _context.Users.FirstOrDefault(a => a.Id == request.Id);
                 if (customer == null) return null;
                 return customer;
             }

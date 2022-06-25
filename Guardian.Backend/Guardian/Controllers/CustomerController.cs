@@ -31,20 +31,20 @@ namespace Guardian.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             return Ok(await Mediator.Send(new GetUserByIdQuery { Id = id }));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             return Ok(await Mediator.Send(new DeleteUserByIdCommand { Id = id }));
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateUserCommand command)
+        public async Task<IActionResult> Update(string id, UpdateUserCommand command)
         {
             if (id != command.Id)
             {

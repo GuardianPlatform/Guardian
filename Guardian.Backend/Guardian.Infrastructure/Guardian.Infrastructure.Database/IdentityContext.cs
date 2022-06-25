@@ -16,7 +16,7 @@ namespace Guardian.Infrastructure.Database
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema("Identity");
-            modelBuilder.Entity<ApplicationUser>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable(name: "User");
             });

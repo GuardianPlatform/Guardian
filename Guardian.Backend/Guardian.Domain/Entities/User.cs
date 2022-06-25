@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Guardian.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : ApplicationUser
     {
         
         public string Email { get; set; }
