@@ -22,9 +22,9 @@ namespace Guardian.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PagiantionParams pagination)
         {
-            var result = await Mediator.Send(new GetAllGamesQuery());
+            var result = await Mediator.Send( new GetAllGamesQuery { Pagiantion = pagination });
 
             return Ok(result);
         }
