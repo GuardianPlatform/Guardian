@@ -1,9 +1,13 @@
-﻿using Guardian.Domain.Auth;
-using Guardian.Domain.Common;
+﻿using Guardian.Domain.Common;
+using Guardian.Domain.Entities;
 using Guardian.Domain.Enum;
+using Guardian.Domain.Models;
 using Guardian.Domain.Settings;
+using Guardian.Infrastructure.Email;
 using Guardian.Service.Contract;
 using Guardian.Service.Exceptions;
+using Guardian.Service.Request;
+using Guardian.Service.Response;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
@@ -112,7 +116,7 @@ namespace Guardian.Service.Implementation
             }
             else
             {
-                throw new ApiException($"Email {request.Email } is already registered.");
+                throw new ApiException($"Email {request.Email} is already registered.");
             }
         }
 
