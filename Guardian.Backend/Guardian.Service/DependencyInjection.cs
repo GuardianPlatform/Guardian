@@ -1,8 +1,8 @@
-﻿using Guardian.Domain.Auth;
-using Guardian.Domain.Common;
+﻿using Guardian.Domain.Common;
 using Guardian.Domain.Settings;
-using Guardian.Persistence;
+using Guardian.Infrastructure.Database;
 using Guardian.Service.Contract;
+using Guardian.Service.Identity;
 using Guardian.Service.Implementation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,9 +44,9 @@ namespace Guardian.Service
             }
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
-            #region Services
+            
             services.AddTransient<IAccountService, AccountService>();
-            #endregion
+            
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
             services.AddAuthentication(options =>
             {

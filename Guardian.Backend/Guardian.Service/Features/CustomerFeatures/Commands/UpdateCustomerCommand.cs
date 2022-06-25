@@ -1,4 +1,4 @@
-﻿using Guardian.Persistence;
+﻿using Guardian.Infrastructure.Database;
 using MediatR;
 using System.Linq;
 using System.Threading;

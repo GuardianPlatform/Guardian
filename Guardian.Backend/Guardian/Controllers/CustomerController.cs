@@ -25,7 +25,7 @@ namespace Guardian.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int pageSize=10, int page=0)
         {
             return Ok(await Mediator.Send(new GetAllCustomerQuery()));
         }

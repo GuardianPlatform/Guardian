@@ -13,6 +13,7 @@ COPY ["Guardian.Service/Guardian.Service.csproj", "Guardian.Service/"]
 COPY ["Guardian.Persistence/Guardian.Persistence.csproj", "Guardian.Persistence/"]
 COPY ["Guardian.Domain/Guardian.Domain.csproj", "Guardian.Domain/"]
 RUN dotnet restore "Guardian/Guardian.csproj"
+RUN dotnet dev-certs https
 COPY . .
 WORKDIR "/src/Guardian"
 RUN dotnet build "Guardian.csproj" -c Release -o /app/build

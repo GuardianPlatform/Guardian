@@ -1,5 +1,5 @@
-﻿using Guardian.Domain.Auth;
-using Guardian.Service.Contract;
+﻿using Guardian.Service.Contract;
+using Guardian.Service.Request;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

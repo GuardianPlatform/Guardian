@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.csproj" />
+    <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure\Guardian.Infrastructure.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

@@ -1,5 +1,5 @@
 ﻿using Guardian.Domain.Entities;
-using Guardian.Persistence;
+using Guardian.Infrastructure.Database;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
