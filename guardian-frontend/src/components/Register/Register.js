@@ -41,35 +41,31 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [responseMsg, setResponseMsg] = useState('');
+
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
 
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
-        console.log(result);
-        console.log(email);
         setValidEmail(result);
     }, [email])
 
     useEffect(() => {
         const result = NAME_REGEX.test(firstName);
-        console.log(result);
-        console.log(firstName);
+
         setValidFirstName(result);
     }, [firstName])
 
     useEffect(() => {
         const result = NAME_REGEX.test(lastName);
-        console.log(result);
-        console.log(lastName);
         setValidLastName(result);
     }, [lastName])
 
     useEffect(() => {
         const result = PASSWORD_REGEX.test(password);
-        console.log(result);
-        console.log(password);
         setValidPassword(result);
         const confirm = password === confirmPassword;
         setValidConfirmPassword(confirm);
@@ -80,6 +76,9 @@ const Register = () => {
     useEffect(() => {
         setErrMsg('');
     }, [email, userName, firstName, lastName, password, confirmPassword])
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -109,6 +108,7 @@ const Register = () => {
             setLastName('');
             setPassword('');
             setConfirmPassword('');
+            setResponseMsg(response.data.message.toString());
         } catch (e) {
             if (!e?.response) {
                 setErrMsg('No server response');
@@ -128,6 +128,7 @@ const Register = () => {
                 <section>
                     <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo"/>
                     <h1 className="register-h1">Success!</h1>
+                    <p className="confirmation-link">{responseMsg}</p>
                     <p>
                         <Link to="/login">Sign in</Link>
                     </p>
