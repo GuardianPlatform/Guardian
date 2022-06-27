@@ -9,6 +9,7 @@
 html {
   font-family: 'Rajdhani', sans-serif;
   font-size: 18px;
+  overflow: hidden;
 }
 
 
@@ -16,7 +17,7 @@ html {
 .App {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: flex-start;
   min-height: 100vh;
 }
 
