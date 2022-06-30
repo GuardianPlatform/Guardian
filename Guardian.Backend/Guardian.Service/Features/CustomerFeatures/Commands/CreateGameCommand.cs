@@ -7,7 +7,7 @@ using Guardian.Infrastructure.Database;
 
 namespace Guardian.Service.Features.CustomerFeatures.Commands
 {
-    class CreateGameCommand : IRequest<string>
+    public class CreateGameCommand : IRequest<string>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -31,9 +31,10 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
 
                 _context.Games.Add(game);
                 await _context.SaveChangesAsync();
-                return game.Name;
+                return game.Id.ToString();
             }
         }
     }
     
 }
+
