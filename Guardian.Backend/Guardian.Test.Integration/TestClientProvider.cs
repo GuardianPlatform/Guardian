@@ -16,8 +16,6 @@ namespace Guardian.Test.Integration
                 .UseStartup<Startup>());
 
             Client = server.CreateClient();
-
-
         }
     }
 }
