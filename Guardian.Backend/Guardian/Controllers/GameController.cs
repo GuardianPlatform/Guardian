@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Guardian.Domain.Entities;
+using Guardian.Service.Features.CustomerFeatures.Commands;
 using System;
 using Guardian.Persistence;
 
@@ -29,5 +30,26 @@ namespace Guardian.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateGameCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return Ok(await Mediator.Send(new DeleteGameCommand { Id = id }));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, UpdateGameCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+            return Ok(await Mediator.Send(command));
+        }
     }
 }
