@@ -1,4 +1,4 @@
-﻿namespace Guardian.Domain.Entities
+﻿namespace Guardian.Domain.Models
 {
     public class PagiantionModel
     {
