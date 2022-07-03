@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Guardian.Domain.Entities;
 using Guardian.Service.Features.CustomerFeatures.Commands;
-using System;
-using Guardian.Persistence;
+using Guardian.Domain.Models;
 
 namespace Guardian.Controllers
 {
@@ -23,9 +21,9 @@ namespace Guardian.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAll([FromQuery] PagiantionParams pagination)
+        public async Task<IActionResult> GetAll([FromQuery] PagiantionModel pagination)
         {
-            var result = await Mediator.Send( new GetAllGamesQuery { Pagiantion = pagination });
+            var result = await Mediator.Send( new GetAllGamesQuery { Pagination = pagination });
 
             return Ok(result);
         }

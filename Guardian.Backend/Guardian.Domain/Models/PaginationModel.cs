@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Guardian.Domain.Entities
+﻿namespace Guardian.Domain.Models
 {
-    public class PagiantionParams
+    public class PagiantionModel
     {
         private const int _maxItemsPerPage = 50;
         private int itemsPerPage = 20;
@@ -17,7 +11,5 @@ namespace Guardian.Domain.Entities
             get => itemsPerPage;
             set => itemsPerPage = value > _maxItemsPerPage ? _maxItemsPerPage : value;
         }
-
-        
     }
 }

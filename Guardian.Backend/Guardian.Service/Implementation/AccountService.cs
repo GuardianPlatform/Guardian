@@ -14,13 +14,13 @@ using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Guardian.Domain;
 
 namespace Guardian.Service.Implementation
 {
@@ -95,29 +95,27 @@ namespace Guardian.Service.Implementation
                 UserName = request.UserName
             };
             var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (userWithSameEmail == null)
-            {
-                var result = await _userManager.CreateAsync(user, request.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
-                    var verificationUri = await SendVerificationEmail(user, origin);
-
-                    if (await _featureManager.IsEnabledAsync(nameof(FeatureManagement.EnableEmailService)))
-                    {
-                        await _emailService.SendEmailAsync(new MailRequest() { From = "amit.naik8103@gmail.com", ToEmail = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
-                    }
-                    return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
-                }
-                else
-                {
-                    throw new ApiException($"{result.Errors.ToList()[0].Description}");
-                }
-            }
-            else
+            if (userWithSameEmail != null)
             {
                 throw new ApiException($"Email {request.Email} is already registered.");
             }
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (!result.Succeeded)
+            {
+                throw new ApiException($"{result.Errors.ToList()[0].Description}");
+            }
+
+            await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
+            var verificationUri = await SendVerificationEmail(user, origin);
+
+            if (await _featureManager.IsEnabledAsync(nameof(FeatureManagement.EnableEmailService)))
+            {
+                await _emailService.SendEmailAsync(new MailRequest() { ToEmail = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
+            }
+
+            return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
+
         }
 
         private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
@@ -125,14 +123,9 @@ namespace Guardian.Service.Implementation
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
 
-            var roleClaims = new List<Claim>();
+            var roleClaims = roles.Select(t => new Claim("roles", t)).ToList();
 
-            for (int i = 0; i < roles.Count; i++)
-            {
-                roleClaims.Add(new Claim("roles", roles[i]));
-            }
-
-            string ipAddress = IpHelper.GetIpAddress();
+            var ipAddress = IpHelper.GetIpAddress();
 
             var claims = new[]
             {
@@ -171,8 +164,8 @@ namespace Guardian.Service.Implementation
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var route = "api/account/confirm-email/";
-            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
-            var verificationUri = QueryHelpers.AddQueryString(_enpointUri.ToString(), "userId", user.Id);
+            var enpointUri = new Uri(string.Concat($"{origin}/", route));
+            var verificationUri = QueryHelpers.AddQueryString(enpointUri.ToString(), "userId", user.Id);
             verificationUri = QueryHelpers.AddQueryString(verificationUri, "code", code);
             //Email Service Call Here
             return verificationUri;
@@ -183,14 +176,11 @@ namespace Guardian.Service.Implementation
             var user = await _userManager.FindByIdAsync(userId);
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            if (result.Succeeded)
-            {
-                return new Response<string>(user.Id, message: $"Account Confirmed for {user.Email}. You can now use the /api/Account/authenticate endpoint.");
-            }
-            else
-            {
+            
+            if (result.Succeeded == false)
                 throw new ApiException($"An error occured while confirming {user.Email}.");
-            }
+
+            return new Response<string>(user.Id, message: $"Account Confirmed for {user.Email}. You can now use the /api/Account/authenticate endpoint.");
         }
 
         private RefreshToken GenerateRefreshToken(string ipAddress)
@@ -212,8 +202,6 @@ namespace Guardian.Service.Implementation
             if (account == null) return;
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(account);
-            var route = "api/account/reset-password/";
-            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
             var emailRequest = new MailRequest()
             {
                 Body = $"You reset token is - {code}",
@@ -226,17 +214,15 @@ namespace Guardian.Service.Implementation
         public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
         {
             var account = await _userManager.FindByEmailAsync(model.Email);
-            if (account == null) throw new ApiException($"No Accounts Registered with {model.Email}.");
+            if (account == null) 
+                throw new ApiException($"No Accounts Registered with {model.Email}.");
+            
             var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
-            if (result.Succeeded)
-            {
-                return new Response<string>(model.Email, message: $"Password Resetted.");
-            }
-            else
-            {
+            
+            if (result.Succeeded == false)
                 throw new ApiException($"Error occured while reseting the password.");
-            }
+
+            return new Response<string>(model.Email, message: $"Password Resetted.");
         }
     }
-
 }

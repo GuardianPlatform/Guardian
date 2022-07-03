@@ -21,20 +21,20 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
             }
             public async Task<string> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var cust = _context.Users.FirstOrDefault(a => a.Id == request.Id);
+                var user = _context.Users.FirstOrDefault(a => a.Id == request.Id);
 
-                if (cust == null)
+                if (user == null)
                 {
                     return default;
                 }
-                else
-                {
-                    cust.Email = request.Email;
-                    cust.Login = request.Login;
-                    _context.Users.Update(cust);
-                    await _context.SaveChangesAsync();
-                    return cust.Id;
-                }
+
+                user.Email = request.Email;
+                user.Login = request.Login;
+
+                _context.Users.Update(user);
+                
+                await _context.SaveChangesAsync();
+                return user.Id;
             }
         }
     }

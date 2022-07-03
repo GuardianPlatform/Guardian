@@ -23,9 +23,12 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
                     .Where(a => a.Id == request.Id)
                     .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-                if (customer == null) return default;
+                if (customer == null)
+                    return default;
+                
                 _context.Users.Remove(customer);
                 await _context.SaveChangesAsync();
+                
                 return customer.Id;
             }
         }
