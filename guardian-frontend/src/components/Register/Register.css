@@ -1,4 +1,19 @@
 
+section {
+  display: flex;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  padding: 5vh;
+}
 .register-h1 {
   font-size: 2rem ;
+}
+.confirmation-link {
+  display: flex;
+  height: 60vh;
+  width: 50vw;
+  overflow-wrap: anywhere;
+
 }

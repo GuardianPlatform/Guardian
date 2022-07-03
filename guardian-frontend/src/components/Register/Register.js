@@ -19,6 +19,9 @@ const Register = () => {
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
+    const [userName, setUserName] = useState('');
+    const [userNameFocus, setUserNameFocus] = useState(false);
+
     const [firstName, setFirstName] = useState('');
     const [validFirstName, setValidFirstName] = useState('');
     const [firstNameFocus, setFirstNameFocus] = useState('');
@@ -38,35 +41,31 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [responseMsg, setResponseMsg] = useState('');
+
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
 
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
-        console.log(result);
-        console.log(email);
         setValidEmail(result);
     }, [email])
 
     useEffect(() => {
         const result = NAME_REGEX.test(firstName);
-        console.log(result);
-        console.log(firstName);
+
         setValidFirstName(result);
     }, [firstName])
 
     useEffect(() => {
         const result = NAME_REGEX.test(lastName);
-        console.log(result);
-        console.log(lastName);
         setValidLastName(result);
     }, [lastName])
 
     useEffect(() => {
         const result = PASSWORD_REGEX.test(password);
-        console.log(result);
-        console.log(password);
         setValidPassword(result);
         const confirm = password === confirmPassword;
         setValidConfirmPassword(confirm);
@@ -76,7 +75,10 @@ const Register = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [email, firstName, lastName, password, confirmPassword])
+    }, [email, userName, firstName, lastName, password, confirmPassword])
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -90,7 +92,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({email, firstName, lastName, password, confirmPassword}),
+                JSON.stringify({email, userName, firstName, lastName, password, confirmPassword}),
                 {
                     headers: {'Content-Type' : 'application/json'},
                     withCredentials: true
@@ -101,10 +103,12 @@ const Register = () => {
             console.log(JSON.stringify(response))
             setSuccess(true);
             setEmail('');
+            setUserName('');
             setFirstName('');
             setLastName('');
             setPassword('');
             setConfirmPassword('');
+            setResponseMsg(response.data.message.toString());
         } catch (e) {
             if (!e?.response) {
                 setErrMsg('No server response');
@@ -124,6 +128,7 @@ const Register = () => {
                 <section>
                     <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo"/>
                     <h1 className="register-h1">Success!</h1>
+                    <p className="confirmation-link">{responseMsg}</p>
                     <p>
                         <Link to="/login">Sign in</Link>
                     </p>
@@ -152,10 +157,20 @@ const Register = () => {
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
                         />
-                        <p id="uidnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
-                            That must be an email adress.
-                        </p>
+                        <label htmlFor="userName">
+                            User Name:
+                        </label>
+                        <input
+                            type="text"
+                            id="userName"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setUserName(e.target.value)}
+                            required
+                            aria-describedby="namenote"
+                            onFocus={() => setUserNameFocus(true)}
+                            onBlur={() => setUserNameFocus(false)}
+                        />
 
                         <label htmlFor="firstName">
                             First Name:

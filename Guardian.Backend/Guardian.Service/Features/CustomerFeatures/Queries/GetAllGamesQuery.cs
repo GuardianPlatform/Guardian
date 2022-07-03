@@ -1,4 +1,6 @@
 ﻿using Guardian.Domain.Entities;
+using Guardian.Infrastructure.Database;
+using Guardian.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -24,6 +26,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
             }
             public async Task<IEnumerable<Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
             {
+
                 var gameList = await _context.Games
                     .Skip(request.Pagiantion.ItemsPerPage * request.Pagiantion.page)
                     .Take(request.Pagiantion.ItemsPerPage)
