@@ -11,9 +11,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
 using System.IO;
+using System.Linq;
 using Guardian.Infrastructure.Extension;
 using HealthChecks.UI.Client;
 using Serilog;
+using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Guardian
 {
@@ -40,40 +44,40 @@ namespace Guardian
 
         public void ConfigureServices(IServiceCollection services)
         {
-           services.AddController();
+            services.AddController();
 
-           services.AddDbContext(Configuration, configRoot);
+            services.AddDbContext(Configuration, configRoot);
 
-           services.AddIdentityService(Configuration);
+            services.AddIdentityService(Configuration);
 
-           services.AddAutoMapper();
+            services.AddAutoMapper();
 
             services.AddEventHub();
 
             services.AddScopedServices();
 
-           services.AddTransientServices();
+            services.AddTransientServices();
 
-           services.AddSwaggerOpenAPI();
+            services.AddSwaggerOpenAPI();
 
             services.AddMailSetting(Configuration)
                 .AddEventHubSettings(Configuration);
 
-           services.AddServiceLayer();
+            services.AddServiceLayer();
 
-           services.AddVersion();
+            services.AddVersion();
 
-           services.AddHealthCheck(AppSettings, Configuration);
+            services.AddHealthCheck(AppSettings, Configuration);
 
-           services.AddFeatureManagement();
+            services.AddFeatureManagement();
 
-           services.AddCors(options =>
-              options.AddPolicy("CorsPolicy", builder =>
-                builder.SetIsOriginAllowed(origin => true)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials()
-                ));
+            services.AddCors(options =>
+               options.AddPolicy("CorsPolicy", builder =>
+                 builder.SetIsOriginAllowed(origin => true)
+                     .AllowAnyMethod()
+                     .AllowAnyHeader()
+                     .AllowCredentials()
+                 ));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
@@ -106,7 +110,7 @@ namespace Guardian
                     [HealthStatus.Healthy] = StatusCodes.Status200OK,
                     [HealthStatus.Degraded] = StatusCodes.Status500InternalServerError,
                     [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
-                },
+                }
             }).UseHealthChecksUI(setup =>
               {
                   setup.ApiPath = "/healthcheck";

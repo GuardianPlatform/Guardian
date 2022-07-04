@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Game.Commands
 {
     public class DeleteGameCommand : IRequest<string>
     {

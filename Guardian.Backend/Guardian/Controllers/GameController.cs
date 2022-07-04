@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Guardian.Service.Features.CustomerFeatures.Commands;
 using Guardian.Domain.Models;
+using Guardian.Service.Features.Game.Commands;
 
 namespace Guardian.Controllers
 {
