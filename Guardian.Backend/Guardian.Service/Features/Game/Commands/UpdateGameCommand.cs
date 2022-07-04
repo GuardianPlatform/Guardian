@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Game.Commands
 {
     public class UpdateGameCommand : IRequest<string>
     {

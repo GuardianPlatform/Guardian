@@ -14,7 +14,15 @@ namespace Guardian
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseUrls("http://localhost")
+                        .UseStartup<Startup>()
+                        .UseKestrel(x =>
+                        {
+                            x.ListenAnyIP(80);
+                            x.ListenAnyIP(44356);
+                        })
+                        .UseIIS();
                 });
     }
 }

@@ -1,11 +1,9 @@
-﻿using Guardian.Domain.Entities;
-using Guardian.Persistence;
-using MediatR;
+﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Game.Commands
 {
     public class CreateGameCommand : IRequest<string>
     {
@@ -23,7 +21,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
             }
             public async Task<string> Handle(CreateGameCommand request, CancellationToken cancellationToken)
             {
-                var game = new Game();
+                var game = new Domain.Entities.Game();
                 game.Name = request.Name;
                 game.Description = request.Description;
                 game.Author = request.Author;
@@ -35,6 +33,6 @@ namespace Guardian.Service.Features.CustomerFeatures.Commands
             }
         }
     }
-    
+
 }
 

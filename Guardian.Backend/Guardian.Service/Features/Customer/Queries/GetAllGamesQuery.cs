@@ -11,11 +11,11 @@ using Guardian.Domain.Models;
 
 namespace Guardian.Service.Features.CustomerFeatures.Queries
 {
-    public class GetAllGamesQuery : IRequest<IEnumerable<Game>>
+    public class GetAllGamesQuery : IRequest<IEnumerable<Domain.Entities.Game>>
     {
         public PagiantionModel Pagination { get; set; }
 
-        public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, IEnumerable<Game>>
+        public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, IEnumerable<Domain.Entities.Game>>
         {
 
             private readonly IApplicationDbContext _context;
@@ -23,7 +23,7 @@ namespace Guardian.Service.Features.CustomerFeatures.Queries
             {
                 _context = context;
             }
-            public async Task<IEnumerable<Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Domain.Entities.Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
             {
 
                 var gameList = await _context.Games
