@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  guardian:
+    image: ${DOCKER_REGISTRY-}guardian
+    build:
+      context: .
+      dockerfile: Guardian/Dockerfile

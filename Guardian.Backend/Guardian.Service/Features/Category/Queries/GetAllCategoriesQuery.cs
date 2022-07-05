@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
 using Guardian.Persistence;
 using Guardian.Service.Features.Product.Queries;
 using MediatR;

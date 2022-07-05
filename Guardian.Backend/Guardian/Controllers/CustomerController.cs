@@ -18,7 +18,7 @@ namespace Guardian.Controllers
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCustomerCommand command)
+        public async Task<IActionResult> Create(CreateUserCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -27,24 +27,24 @@ namespace Guardian.Controllers
         [Route("")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllCustomerQuery()));
+            return Ok(await Mediator.Send(new GetAllUserQuery()));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
-            return Ok(await Mediator.Send(new GetCustomerByIdQuery { Id = id }));
+            return Ok(await Mediator.Send(new GetUserByIdQuery { Id = id }));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await Mediator.Send(new DeleteCustomerByIdCommand { Id = id }));
+            return Ok(await Mediator.Send(new DeleteUserByIdCommand { Id = id }));
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateCustomerCommand command)
+        public async Task<IActionResult> Update(string id, UpdateUserCommand command)
         {
             if (id != command.Id)
             {

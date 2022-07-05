@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Guardian.Domain.Models;
 using Guardian.Service.Features.Category.Commands;
 using Guardian.Service.Features.Category.Queries;
+using Guardian.Service.Features.Game.Commands;
 using Guardian.Service.Features.Product.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Guardian.Controllers
 {
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/Categories")]
     [ApiVersion("1.0")]
     public class CategoryController : ControllerBase
     {
@@ -26,10 +25,10 @@ namespace Guardian.Controllers
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        [HttpGet("/products/{category}")]
-        public async Task<IActionResult> GetProductsForCategory(string category, int pageSize, int page)
+        [HttpGet("products/{category}")]
+        public async Task<IActionResult> GetProductsForCategory(string category, [FromQuery] PagiantionModel pagination)
         {
-            var result = await Mediator.Send(new GetAllProductsForCategoryQuery(category));
+            var result = await Mediator.Send(new GetAllGamesForCategoryQuery(category, pagination));
             return Ok(result);
         }
 
@@ -37,23 +36,50 @@ namespace Guardian.Controllers
         /// Get list of all categories
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/list")]
-        public async Task<IActionResult> GetList()
+        [HttpGet()]
+        public async Task<IActionResult> GetAll()
         {
             var result = await Mediator.Send(new GetAllCategoriesQuery());
             return Ok(result);
         }
 
-
         /// <summary>
         /// Add a new category
         /// </summary>
         /// <returns></returns>
-        [HttpPost("/category")]
-        public async Task<IActionResult> Post([FromBody]CreateCategoryCommand command)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]CreateCategoryCommand command)
         {
             var result = await Mediator.Send(command);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Delete category by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteCategoryCommand() { Id = id }));
+        }
+
+        /// <summary>
+        /// Update category by id. For adding or deleting a game's category use the game controller.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateCategoryCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+            
+            return Ok(await Mediator.Send(command));
         }
     }
 }

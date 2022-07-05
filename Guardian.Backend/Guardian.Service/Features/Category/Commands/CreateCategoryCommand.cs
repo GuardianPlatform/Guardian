@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
 using Guardian.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,10 @@ namespace Guardian.Service.Features.Category.Commands
     public class CreateCategoryCommand : IRequest<Domain.Entities.Category>
     {
         public string CategoryName { get; set; }
-        public string Description { get; set; }
 
-        public CreateCategoryCommand(string categoryName, string description)
+        public CreateCategoryCommand(string categoryName)
         {
             CategoryName = categoryName;
-            Description = description;
         }
 
         public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Domain.Entities.Category>
@@ -39,8 +38,7 @@ namespace Guardian.Service.Features.Category.Commands
                 var category = _context.Categories.Add(new Domain.Entities.Category()
                 {
                     CategoryName = request.CategoryName,
-                    Description = request.Description,
-                    Products = new List<Domain.Entities.Product>()
+                    Games = new List<Domain.Entities.Game>()
                 });
 
                 await _context.SaveChangesAsync();
