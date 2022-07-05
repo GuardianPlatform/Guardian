@@ -1,10 +1,10 @@
-﻿using Guardian.Service.Features.CustomerFeatures.Commands;
-using Guardian.Service.Features.CustomerFeatures.Queries;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using Guardian.Service.Features.Customer.Commands;
+using Guardian.Service.Features.Customer.Queries;
 
 namespace Guardian.Controllers
 {

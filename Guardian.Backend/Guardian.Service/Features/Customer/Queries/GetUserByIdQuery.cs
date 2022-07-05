@@ -1,11 +1,11 @@
-﻿using Guardian.Domain.Entities;
-using Guardian.Infrastructure.Database;
-using MediatR;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Domain.Entities;
+using Guardian.Infrastructure.Database;
+using MediatR;
 
-namespace Guardian.Service.Features.CustomerFeatures.Queries
+namespace Guardian.Service.Features.Customer.Queries
 {
     public class GetUserByIdQuery : IRequest<User>
     {

@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Guardian.Persistence;
-using MediatR;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
+using MediatR;
 
-namespace Guardian.Service.Features.Game.Commands
+namespace Guardian.Service.Features.Category.Commands
 {
     public class UpdateCategoryCommand : IRequest<string>
     {

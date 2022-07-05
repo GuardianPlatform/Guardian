@@ -1,11 +1,10 @@
-﻿using Guardian.Persistence;
-using MediatR;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
+using MediatR;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Customer.Commands
 {
     public class UpdateUserCommand : IRequest<string>
     {

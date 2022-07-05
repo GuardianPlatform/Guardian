@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Guardian.Domain.Entities;
-using Guardian.Persistence.EntityConfiguration;
+using Guardian.Infrastructure.Database.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Infrastructure.Database

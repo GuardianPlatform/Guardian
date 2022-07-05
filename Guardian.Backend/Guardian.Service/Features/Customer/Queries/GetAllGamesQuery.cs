@@ -1,15 +1,13 @@
-﻿using Guardian.Domain.Entities;
-using Guardian.Infrastructure.Database;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Domain.Models;
+using Guardian.Infrastructure.Database;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace Guardian.Service.Features.CustomerFeatures.Queries
+namespace Guardian.Service.Features.Customer.Queries
 {
     public class GetAllGamesQuery : IRequest<IEnumerable<Domain.Entities.Game>>
     {

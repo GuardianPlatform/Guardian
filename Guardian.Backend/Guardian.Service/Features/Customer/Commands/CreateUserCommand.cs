@@ -1,11 +1,10 @@
-﻿using Guardian.Domain.Entities;
-using Guardian.Persistence;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Database;
+using MediatR;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Customer.Commands
 {
     public class CreateUserCommand : IRequest<string>
     {

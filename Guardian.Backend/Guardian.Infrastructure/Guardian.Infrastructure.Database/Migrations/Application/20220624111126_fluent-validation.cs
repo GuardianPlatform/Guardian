@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Guardian.Persistence.Migrations.Application
+namespace Guardian.Infrastructure.Database.Migrations.Application
 {
     public partial class fluentvalidation : Migration
     {

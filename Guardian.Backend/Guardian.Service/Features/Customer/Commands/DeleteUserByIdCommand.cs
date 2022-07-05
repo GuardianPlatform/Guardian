@@ -1,11 +1,11 @@
-﻿using Guardian.Infrastructure.Database;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Infrastructure.Database;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace Guardian.Service.Features.CustomerFeatures.Commands
+namespace Guardian.Service.Features.Customer.Commands
 {
     public class DeleteUserByIdCommand : IRequest<string>
     {
