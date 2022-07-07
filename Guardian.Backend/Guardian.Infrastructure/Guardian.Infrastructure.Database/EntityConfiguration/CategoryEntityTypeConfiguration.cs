@@ -16,8 +16,6 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
             builder
                 .HasMany(x => x.Games)
                 .WithMany(x => x.Categories);
-                
-               
         }
     }
 }

@@ -7,6 +7,7 @@ using Guardian.Infrastructure.Database;
 using System.Collections;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Guardian.Service.Features.Game.Commands
 {
@@ -30,7 +31,7 @@ namespace Guardian.Service.Features.Game.Commands
             {
                 var exist = await _context.Games.AnyAsync(x => x.Name == request.Name, cancellationToken);
                 if (exist)
-                    throw new Exception("Category with given name already exists");
+                    throw new Exception("Game with given name already exists");
 
                 var game = new Domain.Entities.Game();
                 game.Name = request.Name;
@@ -38,15 +39,27 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Author = request.Author;
                 game.License = request.License;
 
+                _context.Games.Add(game);
+                await _context.SaveChangesAsync();
+
+                await AddCategories(request, game);
+                await _context.SaveChangesAsync();
+
+                return game.Id.ToString();
+            }
+
+            private async Task AddCategories(CreateGameCommand request, Domain.Entities.Game game)
+            {
                 var categories = _context.Categories
+                    .Include(x=>x.Games)
                     .Where(c => request.CategoryIds.Contains(c.Id))
                     .ToList();
 
-                game.Categories = categories;
-
-                _context.Games.Add(game);
-                await _context.SaveChangesAsync();
-                return game.Id.ToString();
+                foreach (var category in categories)
+                {
+                    category.Games ??= new List<Domain.Entities.Game>();
+                    category.Games.Add(game);
+                }
             }
         }
     }

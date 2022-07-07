@@ -25,6 +25,7 @@ namespace Guardian.Service.Features.Customer.Queries
             {
 
                 var gameList = await _context.Games
+                    .Include(x=>x.Categories)
                     .Skip(request.Pagination.ItemsPerPage * request.Pagination.page)
                     .Take(request.Pagination.ItemsPerPage)
                     .ToListAsync(cancellationToken: cancellationToken);

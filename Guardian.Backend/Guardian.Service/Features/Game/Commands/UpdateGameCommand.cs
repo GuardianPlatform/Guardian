@@ -1,5 +1,4 @@
-﻿using Guardian.Persistence;
-using MediatR;
+﻿using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +15,6 @@ namespace Guardian.Service.Features.Game.Commands
         public string Author { get; set; }
         public string License { get; set; }
         public List<int> CategoryIds { get; set; }
-
 
         public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, string>
         {
@@ -44,7 +42,6 @@ namespace Guardian.Service.Features.Game.Commands
                     .ToList();
 
                 game.Categories = categories;
-
 
                 _context.Games.Update(game);
                 await _context.SaveChangesAsync();

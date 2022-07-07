@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Domain.Models;
 using Guardian.Infrastructure.Database;
-using Guardian.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

@@ -8,6 +8,11 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Game> builder)
         {
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.HasKey(x => x.Id);
+
             builder
                 .Property(x => x.Name)
                 .HasMaxLength(100)

@@ -341,8 +341,8 @@ namespace Guardian.Infrastructure.Database.Migrations.Identity
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "3c9f430c-5431-46d4-8b28-1d4260a55bcd", 0, "9074d6b1-5bd0-453f-9fc5-d310660e9732", "superadmin@gmail.com", true, "Amit", "Naik", false, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "9861f53d-b7f4-4619-8cbf-6b3b0acc9b14", false, "superadmin" },
-                    { "453ce003-f5d7-4544-bc53-696470c5e754", 0, "fa1bc35f-b544-4b05-8a97-8d56893504aa", "basicuser@gmail.com", true, "Basic", "User", false, null, "BASICUSER@GMAIL.COM", "BASICUSER", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "4ceeca66-9a52-423a-b2a0-ac31ee3b0bd8", false, "basicuser" }
+                    { "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc", 0, "b6ea239b-07f9-438e-81d8-7ff7d1f4e051", "superadmin@gmail.com", true, "Super", "Admin", false, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "5bf03be5-0dfa-4d09-ad56-097bd9c54095", false, "superadmin" },
+                    { "2900ebf8-5ab4-4061-a551-d382af97c924", 0, "abaee515-89f7-4c1f-86e5-ff5ad31874d8", "basicuser@gmail.com", true, "Basic", "User", false, null, "BASICUSER@GMAIL.COM", "BASICUSER", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "e77a12db-b184-4a97-9e8e-5559aace08f1", false, "basicuser" }
                 });
 
             migrationBuilder.InsertData(
@@ -351,10 +351,10 @@ namespace Guardian.Infrastructure.Database.Migrations.Identity
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "684dc924-cbb6-4a0a-9f28-6ca38600c01b", "9ebe472b-6ffb-43de-8d8d-fb9254c4fe72", "SuperAdmin", "SuperAdmin" },
-                    { "c58cf65c-7984-45f4-a227-98c356386999", "9b6c1e7d-eb31-436e-9588-5c0a4580c2aa", "Admin", "Admin" },
-                    { "8992e41d-e002-4cad-bf4a-867c8638740b", "2251979c-3b1a-45ea-b496-59b5b48bcb1e", "Moderator", "Moderator" },
-                    { "468d4c0a-273d-4e44-b677-06d834b4e784", "4fe2e26a-d169-43f0-b6d7-c9d23551bd75", "Basic", "Basic" }
+                    { "71c7459d-551c-4652-bff6-f33fa75aec3d", "ad980fe0-0948-4220-82bf-26c96d22ecca", "SuperAdmin", "SuperAdmin" },
+                    { "520fcf34-cb46-4bff-a5bc-7c15f463cea8", "acd19db0-de75-42ff-a0d6-9c1049c01a3f", "Admin", "Admin" },
+                    { "df6ede86-4b03-4deb-abe4-33a3576c2562", "6977cfb1-c835-478f-925f-084e10761438", "Moderator", "Moderator" },
+                    { "6afa4d22-a751-4dff-b017-2da6c8d3b71b", "7549d3c6-018b-44fc-b577-31b342a1c50d", "Basic", "Basic" }
                 });
 
             migrationBuilder.InsertData(
@@ -363,11 +363,11 @@ namespace Guardian.Infrastructure.Database.Migrations.Identity
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "684dc924-cbb6-4a0a-9f28-6ca38600c01b", "3c9f430c-5431-46d4-8b28-1d4260a55bcd" },
-                    { "c58cf65c-7984-45f4-a227-98c356386999", "3c9f430c-5431-46d4-8b28-1d4260a55bcd" },
-                    { "8992e41d-e002-4cad-bf4a-867c8638740b", "3c9f430c-5431-46d4-8b28-1d4260a55bcd" },
-                    { "468d4c0a-273d-4e44-b677-06d834b4e784", "453ce003-f5d7-4544-bc53-696470c5e754" },
-                    { "468d4c0a-273d-4e44-b677-06d834b4e784", "3c9f430c-5431-46d4-8b28-1d4260a55bcd" }
+                    { "71c7459d-551c-4652-bff6-f33fa75aec3d", "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc" },
+                    { "520fcf34-cb46-4bff-a5bc-7c15f463cea8", "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc" },
+                    { "df6ede86-4b03-4deb-abe4-33a3576c2562", "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc" },
+                    { "6afa4d22-a751-4dff-b017-2da6c8d3b71b", "2900ebf8-5ab4-4061-a551-d382af97c924" },
+                    { "6afa4d22-a751-4dff-b017-2da6c8d3b71b", "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc" }
                 });
 
             migrationBuilder.CreateIndex(

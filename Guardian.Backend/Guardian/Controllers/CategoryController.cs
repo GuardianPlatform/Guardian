@@ -5,6 +5,7 @@ using Guardian.Service.Features.Category.Queries;
 using Guardian.Service.Features.Game.Commands;
 using Guardian.Service.Features.Product.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,10 +24,11 @@ namespace Guardian.Controllers
         /// Get products for given category. Paginated + sorted managed by parameters.
         /// Limit for pageSize is 100, default is set to 10
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="category">Category for which you need to fetch games</param>
         /// <returns></returns>
-        [HttpGet("products/{category}")]
-        public async Task<IActionResult> GetProductsForCategory(string category, [FromQuery] PagiantionModel pagination)
+        [HttpGet("games/{category}")]
+        public async Task<IActionResult> GetProductsForCategory(string category, 
+            [FromQuery] PagiantionModel pagination)
         {
             var result = await Mediator.Send(new GetAllGamesForCategoryQuery(category, pagination));
             return Ok(result);
@@ -48,6 +50,7 @@ namespace Guardian.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        //[Authorize]
         public async Task<IActionResult> Create([FromBody]CreateCategoryCommand command)
         {
             var result = await Mediator.Send(command);
@@ -60,6 +63,7 @@ namespace Guardian.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+       // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteCategoryCommand() { Id = id }));
@@ -72,6 +76,7 @@ namespace Guardian.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        //[Authorize]
         public async Task<IActionResult> Update(int id, UpdateCategoryCommand command)
         {
             if (id != command.Id)

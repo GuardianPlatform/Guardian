@@ -5,7 +5,7 @@
         private const int MaxItemsPerPage = 50;
 
         public int pageSize { get; set; } = 20;
-        public int page { get; set; } = 1;
+        public int page { get; set; } = 0;
 
         public PagiantionModel(int page, int pageSize)
         {
@@ -18,10 +18,7 @@
             
         }
 
-        public int ItemsPerPage
-        {
-            get => pageSize;
-            set => pageSize = value > MaxItemsPerPage ? MaxItemsPerPage : value;
-        }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public int ItemsPerPage => pageSize> MaxItemsPerPage ? MaxItemsPerPage : pageSize;
     }
 }

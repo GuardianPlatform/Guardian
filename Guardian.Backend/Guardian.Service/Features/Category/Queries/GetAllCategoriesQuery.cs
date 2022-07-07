@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
-using Guardian.Persistence;
-using Guardian.Service.Features.Product.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +23,9 @@ namespace Guardian.Service.Features.Category.Queries
             public async Task<IEnumerable<Domain.Entities.Category>> Handle(GetAllCategoriesQuery request,
                 CancellationToken cancellationToken)
             {
-                var customerList = await _context.Categories.ToListAsync(cancellationToken);
+                var customerList = await _context.Categories
+                    .Include(x=>x.Games)
+                    .ToListAsync(cancellationToken);
                 return customerList?.AsReadOnly();
             }
         }
