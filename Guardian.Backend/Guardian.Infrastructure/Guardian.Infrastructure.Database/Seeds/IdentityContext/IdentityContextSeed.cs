@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace Guardian.Infrastructure.Database.Seeds
+namespace Guardian.Infrastructure.Database.Seeds.Contexts
 {
-    public static class ContextSeed
+    public static class IdentityContextSeed
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -14,8 +14,6 @@ namespace Guardian.Infrastructure.Database.Seeds
             CreateBasicUsers(modelBuilder);
 
             MapUserRole(modelBuilder);
-
-            CreateCategory(modelBuilder);
         }
 
         private static void CreateRoles(ModelBuilder modelBuilder)
@@ -36,10 +34,5 @@ namespace Guardian.Infrastructure.Database.Seeds
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(identityUserRoles);
         }
 
-        private static void CreateCategory(ModelBuilder modelBuilder)
-        {
-            List<Category> categories = DefaultCategories.CreateCategories();
-            modelBuilder.Entity<Category>().HasData(categories);
-        }
     }
 }

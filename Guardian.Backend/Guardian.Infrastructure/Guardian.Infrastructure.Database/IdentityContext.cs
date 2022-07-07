@@ -1,5 +1,6 @@
 ﻿using Guardian.Domain.Entities;
-using Guardian.Infrastructure.Database.Seeds;
+using Guardian.Infrastructure.Database.Seeds.ApplicationDbContext;
+using Guardian.Infrastructure.Database.Seeds.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace Guardian.Infrastructure.Database
                 entity.ToTable("UserTokens");
             });
 
-            modelBuilder.Seed();
+            IdentityContextSeed.Seed(modelBuilder);
         }
     }
 }
