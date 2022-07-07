@@ -1,13 +1,12 @@
-﻿using Guardian.Domain.Entities;
-using Guardian.Persistence;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Database;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace Guardian.Service.Features.CustomerFeatures.Queries
+namespace Guardian.Service.Features.Customer.Queries
 {
     public class GetAllUserQuery : IRequest<IEnumerable<User>>
     {

@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Guardian.Infrastructure.Database.Migrations
+namespace Guardian.Infrastructure.Database.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20220625094036_Initial-migration")]
+    [Migration("20220707000908_Initial-migration")]
     partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,27 +125,27 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
+                            Id = "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9074d6b1-5bd0-453f-9fc5-d310660e9732",
+                            ConcurrencyStamp = "b6ea239b-07f9-438e-81d8-7ff7d1f4e051",
                             Email = "superadmin@gmail.com",
                             EmailConfirmed = true,
-                            FirstName = "Amit",
-                            LastName = "Naik",
+                            FirstName = "Super",
+                            LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "9861f53d-b7f4-4619-8cbf-6b3b0acc9b14",
+                            SecurityStamp = "5bf03be5-0dfa-4d09-ad56-097bd9c54095",
                             TwoFactorEnabled = false,
                             UserName = "superadmin"
                         },
                         new
                         {
-                            Id = "453ce003-f5d7-4544-bc53-696470c5e754",
+                            Id = "2900ebf8-5ab4-4061-a551-d382af97c924",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa1bc35f-b544-4b05-8a97-8d56893504aa",
+                            ConcurrencyStamp = "abaee515-89f7-4c1f-86e5-ff5ad31874d8",
                             Email = "basicuser@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Basic",
@@ -155,7 +155,7 @@ namespace Guardian.Infrastructure.Database.Migrations
                             NormalizedUserName = "BASICUSER",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4ceeca66-9a52-423a-b2a0-ac31ee3b0bd8",
+                            SecurityStamp = "e77a12db-b184-4a97-9e8e-5559aace08f1",
                             TwoFactorEnabled = false,
                             UserName = "basicuser"
                         });
@@ -299,29 +299,29 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "684dc924-cbb6-4a0a-9f28-6ca38600c01b",
-                            ConcurrencyStamp = "9ebe472b-6ffb-43de-8d8d-fb9254c4fe72",
+                            Id = "71c7459d-551c-4652-bff6-f33fa75aec3d",
+                            ConcurrencyStamp = "ad980fe0-0948-4220-82bf-26c96d22ecca",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "c58cf65c-7984-45f4-a227-98c356386999",
-                            ConcurrencyStamp = "9b6c1e7d-eb31-436e-9588-5c0a4580c2aa",
+                            Id = "520fcf34-cb46-4bff-a5bc-7c15f463cea8",
+                            ConcurrencyStamp = "acd19db0-de75-42ff-a0d6-9c1049c01a3f",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "8992e41d-e002-4cad-bf4a-867c8638740b",
-                            ConcurrencyStamp = "2251979c-3b1a-45ea-b496-59b5b48bcb1e",
+                            Id = "df6ede86-4b03-4deb-abe4-33a3576c2562",
+                            ConcurrencyStamp = "6977cfb1-c835-478f-925f-084e10761438",
                             Name = "Moderator",
                             NormalizedName = "Moderator"
                         },
                         new
                         {
-                            Id = "468d4c0a-273d-4e44-b677-06d834b4e784",
-                            ConcurrencyStamp = "4fe2e26a-d169-43f0-b6d7-c9d23551bd75",
+                            Id = "6afa4d22-a751-4dff-b017-2da6c8d3b71b",
+                            ConcurrencyStamp = "7549d3c6-018b-44fc-b577-31b342a1c50d",
                             Name = "Basic",
                             NormalizedName = "Basic"
                         });
@@ -414,28 +414,28 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "453ce003-f5d7-4544-bc53-696470c5e754",
-                            RoleId = "468d4c0a-273d-4e44-b677-06d834b4e784"
+                            UserId = "2900ebf8-5ab4-4061-a551-d382af97c924",
+                            RoleId = "6afa4d22-a751-4dff-b017-2da6c8d3b71b"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "684dc924-cbb6-4a0a-9f28-6ca38600c01b"
+                            UserId = "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc",
+                            RoleId = "71c7459d-551c-4652-bff6-f33fa75aec3d"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "c58cf65c-7984-45f4-a227-98c356386999"
+                            UserId = "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc",
+                            RoleId = "520fcf34-cb46-4bff-a5bc-7c15f463cea8"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "8992e41d-e002-4cad-bf4a-867c8638740b"
+                            UserId = "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc",
+                            RoleId = "df6ede86-4b03-4deb-abe4-33a3576c2562"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "468d4c0a-273d-4e44-b677-06d834b4e784"
+                            UserId = "b77c40ab-88d5-4b8e-a1b9-16fdeef163dc",
+                            RoleId = "6afa4d22-a751-4dff-b017-2da6c8d3b71b"
                         });
                 });
 

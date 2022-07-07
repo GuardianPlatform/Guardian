@@ -2,14 +2,23 @@
 {
     public class PagiantionModel
     {
-        private const int _maxItemsPerPage = 50;
-        private int itemsPerPage = 20;
+        private const int MaxItemsPerPage = 50;
 
-        public int page { get; set; } = 1;
-        public int ItemsPerPage
+        public int pageSize { get; set; } = 20;
+        public int page { get; set; } = 0;
+
+        public PagiantionModel(int page, int pageSize)
         {
-            get => itemsPerPage;
-            set => itemsPerPage = value > _maxItemsPerPage ? _maxItemsPerPage : value;
+            this.page = page;
+            this.pageSize = pageSize;
         }
+
+        public PagiantionModel()
+        {
+            
+        }
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public int ItemsPerPage => pageSize> MaxItemsPerPage ? MaxItemsPerPage : pageSize;
     }
 }

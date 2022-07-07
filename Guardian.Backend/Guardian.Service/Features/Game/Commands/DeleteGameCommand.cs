@@ -23,7 +23,9 @@ namespace Guardian.Service.Features.Game.Commands
                     .Where(a => a.Id.ToString() == request.Id)
                     .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-                if (game == null) return default;
+                if (game == null) 
+                    return default;
+                
                 _context.Games.Remove(game);
                 await _context.SaveChangesAsync();
                 return game.Id.ToString();

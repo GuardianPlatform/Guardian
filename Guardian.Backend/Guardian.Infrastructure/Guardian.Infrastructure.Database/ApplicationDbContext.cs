@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Guardian.Domain.Entities;
-using Guardian.Persistence.EntityConfiguration;
+using Guardian.Infrastructure.Database.EntityConfiguration;
+using Guardian.Infrastructure.Database.Seeds.ApplicationDbContext;
+using Guardian.Infrastructure.Database.Seeds.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Infrastructure.Database
@@ -27,6 +29,7 @@ namespace Guardian.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityTypeConfiguration).Assembly);
+            ApplicationDbContextSeed.Seed(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
