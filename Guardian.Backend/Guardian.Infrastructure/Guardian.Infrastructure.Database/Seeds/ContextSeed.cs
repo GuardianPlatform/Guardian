@@ -14,6 +14,8 @@ namespace Guardian.Infrastructure.Database.Seeds
             CreateBasicUsers(modelBuilder);
 
             MapUserRole(modelBuilder);
+
+            CreateCategory(modelBuilder);
         }
 
         private static void CreateRoles(ModelBuilder modelBuilder)
@@ -32,6 +34,12 @@ namespace Guardian.Infrastructure.Database.Seeds
         {
             var identityUserRoles = MappingUserRole.IdentityUserRoleList();
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(identityUserRoles);
+        }
+
+        private static void CreateCategory(ModelBuilder modelBuilder)
+        {
+            List<Category> categories = DefaultCategories.CreateCategories();
+            modelBuilder.Entity<Category>().HasData(categories);
         }
     }
 }
