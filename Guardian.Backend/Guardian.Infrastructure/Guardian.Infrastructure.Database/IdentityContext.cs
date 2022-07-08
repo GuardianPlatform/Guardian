@@ -1,4 +1,5 @@
 ﻿using Guardian.Domain.Entities;
+using Guardian.Infrastructure.Database.EntityConfiguration;
 using Guardian.Infrastructure.Database.Seeds.ApplicationDbContext;
 using Guardian.Infrastructure.Database.Seeds.Contexts;
 using Microsoft.AspNetCore.Identity;
@@ -51,7 +52,15 @@ namespace Guardian.Infrastructure.Database
                 entity.ToTable("UserTokens");
             });
 
+            modelBuilder.ApplyConfiguration(new GameUsersEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GameCategoryEntityTypeConfiguration());
+
             IdentityContextSeed.Seed(modelBuilder);
+            
         }
+
+        public DbSet<GameUsers> GameUsers { get; set; }
+        public DbSet<GameCategory> GameCategories { get; set; }
+        
     }
 }
