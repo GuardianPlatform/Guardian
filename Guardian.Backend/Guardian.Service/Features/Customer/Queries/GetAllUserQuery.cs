@@ -20,7 +20,10 @@ namespace Guardian.Service.Features.Customer.Queries
             }
             public async Task<IEnumerable<User>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
             {
-                var customerList = await _context.Users.ToListAsync(cancellationToken: cancellationToken);
+                var customerList = await _context.Users
+                    .AsNoTracking()
+                    .ToListAsync(cancellationToken: cancellationToken);
+
                 return customerList?.AsReadOnly();
             }
         }

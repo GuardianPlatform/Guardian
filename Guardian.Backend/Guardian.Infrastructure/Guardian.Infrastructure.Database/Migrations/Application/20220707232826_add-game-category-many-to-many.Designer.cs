@@ -4,50 +4,22 @@ using Guardian.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Guardian.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220707232826_add-game-category-many-to-many")]
+    partial class addgamecategorymanytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CategoryGame", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "GamesId");
-
-                    b.HasIndex("GamesId");
-
-                    b.ToTable("CategoryGame");
-                });
-
-            modelBuilder.Entity("GameUser", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GamesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("GameUser");
-                });
 
             modelBuilder.Entity("Guardian.Domain.Entities.Category", b =>
                 {
@@ -64,6 +36,33 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryName = "Strategy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryName = "Sport"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryName = "Simulator"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryName = "Racing"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryName = "Shooter"
+                        });
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.Game", b =>
@@ -98,6 +97,36 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.ToTable("Games");
                 });
 
+            modelBuilder.Entity("Guardian.Domain.Entities.GameCategory", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GameId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("GameCategories");
+                });
+
+            modelBuilder.Entity("Guardian.Domain.Entities.GameUsers", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GameId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GameUsers");
+                });
+
             modelBuilder.Entity("Guardian.Domain.Entities.Rating", b =>
                 {
                     b.Property<int>("Id")
@@ -106,26 +135,24 @@ namespace Guardian.Infrastructure.Database.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
                     b.Property<int>("Score")
-                        .HasMaxLength(1000)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Ratings");
                 });
@@ -233,34 +260,42 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.ToTable("RefreshToken");
                 });
 
-            modelBuilder.Entity("CategoryGame", b =>
+            modelBuilder.Entity("Guardian.Domain.Entities.GameCategory", b =>
                 {
-                    b.HasOne("Guardian.Domain.Entities.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
+                    b.HasOne("Guardian.Domain.Entities.Category", "Category")
+                        .WithMany("GameCategories")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Guardian.Domain.Entities.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
+                    b.HasOne("Guardian.Domain.Entities.Game", "Game")
+                        .WithMany("GameCategories")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameUser", b =>
+            modelBuilder.Entity("Guardian.Domain.Entities.GameUsers", b =>
                 {
-                    b.HasOne("Guardian.Domain.Entities.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
+                    b.HasOne("Guardian.Domain.Entities.Game", "Game")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Guardian.Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
+                    b.HasOne("Guardian.Domain.Entities.User", "User")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.Rating", b =>
@@ -273,7 +308,9 @@ namespace Guardian.Infrastructure.Database.Migrations
 
                     b.HasOne("Guardian.Domain.Entities.User", "User")
                         .WithMany("Ratings")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
 
@@ -287,13 +324,24 @@ namespace Guardian.Infrastructure.Database.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("Guardian.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("GameCategories");
+                });
+
             modelBuilder.Entity("Guardian.Domain.Entities.Game", b =>
                 {
+                    b.Navigation("GameCategories");
+
+                    b.Navigation("GameUsers");
+
                     b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.User", b =>
                 {
+                    b.Navigation("GameUsers");
+
                     b.Navigation("Ratings");
 
                     b.Navigation("RefreshTokens");

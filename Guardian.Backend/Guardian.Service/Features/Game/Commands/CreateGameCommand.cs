@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
 using System.Collections;
 using System;
+using Guardian.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 
@@ -26,7 +27,7 @@ namespace Guardian.Service.Features.Game.Commands
             {
                 _context = context;
             }
-            
+
             public async Task<string> Handle(CreateGameCommand request, CancellationToken cancellationToken)
             {
                 var exist = await _context.Games.AnyAsync(x => x.Name == request.Name, cancellationToken);
@@ -38,28 +39,21 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Description = request.Description;
                 game.Author = request.Author;
                 game.License = request.License;
+                game.GameCategories = new List<GameCategory>();
+
+                var categoriesToAdd = _context.Categories
+                    .AsNoTracking()
+                    .Where(x => request.CategoryIds.Contains(x.Id)).ToList();
+
+                game.GameCategories = categoriesToAdd
+                    .Select(categoryId => new GameCategory() { CategoryId = categoryId.Id, Game = game })
+                    .ToList();
 
                 _context.Games.Add(game);
                 await _context.SaveChangesAsync();
 
-                await AddCategories(request, game);
-                await _context.SaveChangesAsync();
 
                 return game.Id.ToString();
-            }
-
-            private async Task AddCategories(CreateGameCommand request, Domain.Entities.Game game)
-            {
-                var categories = _context.Categories
-                    .Include(x=>x.Games)
-                    .Where(c => request.CategoryIds.Contains(c.Id))
-                    .ToList();
-
-                foreach (var category in categories)
-                {
-                    category.Games ??= new List<Domain.Entities.Game>();
-                    category.Games.Add(game);
-                }
             }
         }
     }

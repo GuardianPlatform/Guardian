@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Database;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Service.Features.Customer.Queries
 {
@@ -19,7 +20,10 @@ namespace Guardian.Service.Features.Customer.Queries
             }
             public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
             {
-                var customer = _context.Users.FirstOrDefault(a => a.Id == request.Id);
+                var customer = _context.Users
+                    .AsNoTracking()
+                    .FirstOrDefault(a => a.Id == request.Id);
+
                 return customer;
             }
         }

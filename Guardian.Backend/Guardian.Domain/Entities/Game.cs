@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Guardian.Domain.Entities
 {
@@ -11,9 +11,14 @@ namespace Guardian.Domain.Entities
         public string Author { get; set; }
         public string License { get; set; }
 
-        public List<Category> Categories { get; set; }
-        public List<Rating> Ratings { get; set; }
-        public List<User> Users { get; set; }
+        [IgnoreDataMember]
+        public List<GameCategory> GameCategories { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
+        public ICollection<Rating> Ratings { get; set; }
+
+        [IgnoreDataMember]
+        public List<GameUsers> GameUsers { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

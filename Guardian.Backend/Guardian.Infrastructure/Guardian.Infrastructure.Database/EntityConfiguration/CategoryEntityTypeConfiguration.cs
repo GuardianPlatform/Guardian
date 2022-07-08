@@ -12,10 +12,6 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
                 .Property(x => x.CategoryName)
                 .IsRequired()
                 .HasMaxLength(50);
-
-            builder
-                .HasMany(x => x.Games)
-                .WithMany(x => x.Categories);
         }
     }
 }

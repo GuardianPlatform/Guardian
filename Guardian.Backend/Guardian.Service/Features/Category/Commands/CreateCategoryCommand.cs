@@ -37,7 +37,6 @@ namespace Guardian.Service.Features.Category.Commands
                 var category = _context.Categories.Add(new Domain.Entities.Category()
                 {
                     CategoryName = request.CategoryName,
-                    Games = new List<Domain.Entities.Game>()
                 });
 
                 await _context.SaveChangesAsync();

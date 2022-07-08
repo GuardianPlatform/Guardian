@@ -10,25 +10,22 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
         {
             builder
                .Property(x => x.Score)
-               .HasMaxLength(1000)
                .IsRequired();
 
-            builder
-                .Property(x => x.UserId)
-                .IsRequired();
+            builder.Property(x => x.Comment)
+                .HasMaxLength(1000);
 
             builder
                 .HasOne(x => x.User)
-                .WithMany(y => y.Ratings);
-
-            builder
-               .Property(x => x.GameId)
-               .IsRequired();
-
+                .WithMany(y => y.Ratings)
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
 
             builder
                  .HasOne(x => x.Game)
-                 .WithMany(x => x.Ratings);
+                 .WithMany(x => x.Ratings)
+                 .HasForeignKey(x => x.GameId)
+                 .IsRequired();
 
         }
     }
