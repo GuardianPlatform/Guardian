@@ -19,8 +19,8 @@ namespace Guardian
                         .UseStartup<Startup>()
                         .UseKestrel(x =>
                         {
-                            x.ListenAnyIP(80);
-                            x.ListenAnyIP(44356);
+                            //x.ListenLocalhost(80);
+                            x.ListenLocalhost(5001);
                         })
                         .UseIIS();
                 });
