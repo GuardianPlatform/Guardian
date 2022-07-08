@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400&display=swap");
 
 * {
   margin: 0;
@@ -7,12 +7,10 @@
 }
 
 html {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 18px;
   overflow: hidden;
 }
-
-
 
 .App {
   display: flex;
@@ -24,7 +22,7 @@ html {
 h1 {
   align-self: center;
   font-weight: bold;
-  margin-bottom: 1vh ;
+  margin-bottom: 1vh;
   text-align: center;
 }
 
@@ -32,12 +30,13 @@ p {
   text-align: center;
 }
 
-a, a:visited {
+a,
+a:visited {
   color: #38b6ff;
   text-decoration: none;
 }
 
-button>a {
+button > a {
   color: #ffffff;
   text-decoration: none;
   font-size: 0.9rem;
@@ -46,19 +45,17 @@ button>a {
 input[type="text"],
 input[type="password"],
 textarea {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 1rem;
   padding: 0.25rem;
   border-radius: 0.5rem;
   color: #333;
   background-color: #fff;
   border: 2px solid #333;
-
-
 }
 
 button {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 0.8rem;
   padding: 0.5rem;
   border-radius: 1rem;
@@ -79,7 +76,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-
 label,
 button {
   margin-top: 1rem;
@@ -95,15 +91,13 @@ label {
   text-align: center;
 }
 
-
-
 .instructions {
   font-size: 0.75rem;
   border-radius: 0.5rem;
-  background: #BE1C1F;
+  background: #be1c1f;
   color: #fff;
   padding: 0.25rem;
-  margin-bottom: 0!important;
+  margin-bottom: 0 !important;
   position: relative;
   bottom: -10px;
 }
@@ -127,18 +121,18 @@ label {
 }
 
 .invalid {
-  color: #BE1C1F;
+  color: #be1c1f;
   margin-left: 0.25rem;
 }
 
 .errmsg {
-  background-color:  rgba(190,28,31,0.3);
-  color: rgb(190,28,31);
+  background-color: rgba(190, 28, 31, 0.3);
+  color: rgb(190, 28, 31);
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 10px;
-
+  max-width: 40%;
 }
 
 .line {
