@@ -1,6 +1,5 @@
 import {React, useContext, useState, useEffect, useRef} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import { useMediaQuery } from 'react-responsive'
 import  {FontAwesomeIcon}  from "@fortawesome/react-fontawesome";
 import {faSearch, faSignOutAlt, faList, faChevronCircleDown} from "@fortawesome/free-solid-svg-icons";
 
@@ -14,7 +13,7 @@ import useAuth from "../../hooks/useAuth";
 
 
 
-const Category = () => {
+const Home = () => {
     const { auth } = useAuth();
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -24,11 +23,6 @@ const Category = () => {
     const token = localStorage.getItem('token');
 
     const [category, setCategory] = useState('');
-
-
-    useEffect(() => {
-        searchRef.current.focus();
-    }, []);
 
 
 
@@ -65,31 +59,32 @@ const Category = () => {
         navigate('/login');
     }
 
-    return(
+return (
+    <section className="home-wrapper">
 
-        <section className="home-wrapper">
+        {/*HEADER*/}
+        <header>
+            <img src={require('../../assets/logo.png')}
+                 className="logo"
+                 alt="brand-logo"/>
 
-            {/*HEADER*/}
-            <header>
-                <img src={require('../../assets/logo.png')}
-                     className="logo"
-                     alt="brand-logo"/>
 
-            </header>
-            <ul className="category-wrapper">
-                {category.map((category) =>
-                <li
-                    key={category.id}
-                    id="category"
-                    className="category"
-                >
 
-                </li>)
-                }
-            </ul>
-        </section>
-    );
+
+            <div className="logout">
+                <button onClick={logout} className="logout">Logout</button>
+               <FontAwesomeIcon icon={faSignOutAlt} onClick={logout}/>
+            </div>
+        </header>
+
+        {/* HEADER END*/}
+
+
+
+
+    </section>
+);
 }
 
 
-export default Category;
+export default Home;
