@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
 using System.Collections.Generic;
+using Guardian.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Service.Features.Game.Commands
 {
@@ -37,11 +39,14 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Author = request.Author;
                 game.License = request.License;
 
-                var categories = _context.Categories
-                    .Where(c => request.CategoryIds.Contains(c.Id))
+                var categoriesToAdd = _context.Categories
+                    .AsNoTracking()
+                    .Where(x => request.CategoryIds.Contains(x.Id))
                     .ToList();
 
-                game.Categories = categories;
+                game.GameCategories = categoriesToAdd
+                    .Select(categoryId => new GameCategory() { CategoryId = categoryId.Id, Game = game })
+                    .ToList();
 
                 _context.Games.Update(game);
                 await _context.SaveChangesAsync();

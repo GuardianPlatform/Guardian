@@ -32,15 +32,8 @@ namespace Guardian.Service.Features.Product.Queries
             public async Task<IEnumerable<Domain.Entities.Game>> Handle(GetAllGamesForCategoryQuery request,
                 CancellationToken cancellationToken)
             {
-                var category = await _context.Categories
-                    .FirstOrDefaultAsync(x => x.CategoryName == request.Category, cancellationToken);
-
-                if (category == null)
-                {
-                    throw new Exception("Given category name not found");
-                }
-
-                return category.Games?
+                return _context.Games?
+                    .Where(x => x.Categories.Any(y => string.Equals(y.CategoryName, request.Category, StringComparison.InvariantCultureIgnoreCase)))
                     .Skip(request.Pagination.ItemsPerPage * request.Pagination.page)
                     .Take(request.Pagination.ItemsPerPage)
                     .ToList().AsReadOnly();

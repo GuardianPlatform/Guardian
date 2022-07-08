@@ -34,18 +34,34 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Categories)
-                .WithMany(x => x.Games);
-
-            builder
                 .HasMany(x => x.Ratings)
                 .WithOne(x => x.Game)
+                .HasForeignKey(x => x.GameId)
                 .OnDelete(DeleteBehavior.Cascade);
-               
+
             builder
                 .HasMany(x => x.Users)
-                .WithMany(x => x.Games);
+                .WithMany(x => x.Games)
+                .UsingEntity<GameUsers>(
+                    x => x.HasOne(y => y.User)
+                        .WithMany(y => y.GameUsers)
+                        .HasForeignKey(y => y.UserId),
+                    x => x.HasOne(y => y.Game)
+                        .WithMany(y => y.GameUsers)
+                        .HasForeignKey(y => y.GameId),
+                    x => x.HasKey(y => new { y.GameId, y.UserId }));
 
+            builder
+                .HasMany(x => x.Categories)
+                .WithMany(x => x.Games)
+                .UsingEntity<GameCategory>(
+                    x => x.HasOne(y => y.Category)
+                        .WithMany(y => y.GameCategories)
+                        .HasForeignKey(y => y.CategoryId),
+                    x => x.HasOne(y => y.Game)
+                        .WithMany(y => y.GameCategories)
+                        .HasForeignKey(y => y.GameId),
+                    x => x.HasKey(y => new { y.GameId, y.CategoryId }));
         }
     }
 }

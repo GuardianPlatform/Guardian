@@ -18,12 +18,9 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Games)
-                .WithMany(x => x.Users);
-
-            builder
                 .HasMany(x => x.Ratings)
-                .WithOne(x => x.User);
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

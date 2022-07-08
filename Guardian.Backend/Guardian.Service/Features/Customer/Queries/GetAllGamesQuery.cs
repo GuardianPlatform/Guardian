@@ -23,7 +23,6 @@ namespace Guardian.Service.Features.Customer.Queries
             }
             public async Task<IEnumerable<Domain.Entities.Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
             {
-
                 var gameList = await _context.Games
                     .Include(x=>x.Categories)
                     .Skip(request.Pagination.ItemsPerPage * request.Pagination.page)

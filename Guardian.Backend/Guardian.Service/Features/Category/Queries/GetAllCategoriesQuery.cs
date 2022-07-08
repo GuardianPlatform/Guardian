@@ -24,8 +24,9 @@ namespace Guardian.Service.Features.Category.Queries
                 CancellationToken cancellationToken)
             {
                 var customerList = await _context.Categories
-                    .Include(x=>x.Games)
+                    .AsNoTracking()
                     .ToListAsync(cancellationToken);
+
                 return customerList?.AsReadOnly();
             }
         }
