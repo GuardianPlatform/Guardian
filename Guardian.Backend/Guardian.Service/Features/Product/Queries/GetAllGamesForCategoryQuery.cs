@@ -33,7 +33,7 @@ namespace Guardian.Service.Features.Product.Queries
                 CancellationToken cancellationToken)
             {
                 return _context.Games?
-                    .Where(x => x.Categories.Any(y => string.Equals(y.CategoryName, request.Category, StringComparison.InvariantCultureIgnoreCase)))
+                    .Where(x => x.Categories.Any(y => y.CategoryName.ToLower() == request.Category.ToLower()))
                     .Skip(request.Pagination.ItemsPerPage * request.Pagination.page)
                     .Take(request.Pagination.ItemsPerPage)
                     .ToList().AsReadOnly();
