@@ -4,11 +4,9 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
-using System.Collections;
 using System;
 using Guardian.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Guardian.Service.Features.Game.Commands
 {
@@ -18,6 +16,8 @@ namespace Guardian.Service.Features.Game.Commands
         public string Description { get; set; }
         public string Author { get; set; }
         public string License { get; set; }
+        public string ImageUrl { get; set; }
+
         public List<int> CategoryIds { get; set; }
 
         public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, string>
@@ -39,6 +39,7 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Description = request.Description;
                 game.Author = request.Author;
                 game.License = request.License;
+                game.ImageUrl = request.ImageUrl;
                 game.GameCategories = new List<GameCategory>();
 
                 var categoriesToAdd = _context.Categories
