@@ -9,7 +9,7 @@ namespace Guardian.Infrastructure.Database.Seeds
 {
     public static class DefaultCategories
     {
-        public static List<Category> CreateCategories()
+        public static List<Category> CreateDefaultCategories()
         {
             return new List<Category>()
             {
