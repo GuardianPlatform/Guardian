@@ -1,0 +1,35 @@
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  .logo {
+    height: 17vh;
+    position: absolute;
+    top: 5vh;
+    left: 3vw;
+  }
+  .logout {
+    position: absolute;
+    top: 1vh;
+    right: 2vw;
+  }
+
+  .categories-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    .category-list {
+      list-style: none;
+    }
+    .category {
+      font-size: 2rem;
+      padding: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+}
