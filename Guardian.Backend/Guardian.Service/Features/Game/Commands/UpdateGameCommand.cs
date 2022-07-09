@@ -39,7 +39,7 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Description = request.Description;
                 game.Author = request.Author;
                 game.License = request.License;
-                game.ImageUrl = request.ImageUrl
+                game.ImageUrl = request.ImageUrl;
 
                 var categoriesToAdd = _context.Categories
                     .AsNoTracking()
