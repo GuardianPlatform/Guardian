@@ -11,7 +11,7 @@ namespace Guardian.Infrastructure.Database.Seeds.ApplicationDbContext
 {
     public static class ApplicationDbContextSeed
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
             CreateCategory(modelBuilder);
             CreateGames(modelBuilder);
@@ -29,10 +29,11 @@ namespace Guardian.Infrastructure.Database.Seeds.ApplicationDbContext
             var games = DefaultGames.CreateDefaultGames();
             modelBuilder.Entity<Game>().HasData(games);
         }
+
         private static void CreateCategoryGame(ModelBuilder modelBuilder)
         {
-            var games = DefaultGameCategory.CreateDefaultGameCategories();
-            modelBuilder.Entity<Game>().HasData(games);
+            var gameCategories = DefaultGameCategory.CreateDefaultGameCategories();
+            modelBuilder.Entity<GameCategory>().HasData(gameCategories);
         }
 
     }

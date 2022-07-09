@@ -16,7 +16,7 @@ namespace Guardian.Infrastructure.Database.Seeds
             {
                 new Game
                 {
-                    Id = (int)DatabaseGeneratedOption.Identity,
+                    Id = 1,
                     Name = "Medal of Honor",
                     Description = "World War II shooter game.",
                     Author = "EA Games",
@@ -26,7 +26,7 @@ namespace Guardian.Infrastructure.Database.Seeds
                 },
                 new Game
                 {
-                    Id = (int)DatabaseGeneratedOption.Identity,
+                    Id = 2,
                     Name = "Need for Speed",
                     Description = "Racing game with super fast cars.",
                     Author = "Ea Games",
@@ -35,7 +35,7 @@ namespace Guardian.Infrastructure.Database.Seeds
                 },
                 new Game
                 {
-                    Id = (int)DatabaseGeneratedOption.Identity,
+                    Id = 3,
                     Name = "FIFA",
                     Description = "Football game.",
                     Author = "EA Sports",
@@ -43,12 +43,11 @@ namespace Guardian.Infrastructure.Database.Seeds
                 },
                 new Game
                 {
-                    Id = (int)DatabaseGeneratedOption.Identity,
+                    Id = 4,
                     Name = "Farming Simulator",
                     Description = "Farm simulator.",
                     Author = "CD Projekt",
                     License = "-"
-
                 }
 
             };
