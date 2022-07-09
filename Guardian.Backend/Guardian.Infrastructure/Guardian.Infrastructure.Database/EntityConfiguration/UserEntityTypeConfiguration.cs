@@ -1,12 +1,7 @@
 ﻿using Guardian.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Guardian.Persistence.EntityConfiguration
+namespace Guardian.Infrastructure.Database.EntityConfiguration
 {
     internal class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
@@ -23,12 +18,9 @@ namespace Guardian.Persistence.EntityConfiguration
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Games)
-                .WithMany(x => x.Users);
-
-            builder
                 .HasMany(x => x.Ratings)
-                .WithOne(x => x.User);
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

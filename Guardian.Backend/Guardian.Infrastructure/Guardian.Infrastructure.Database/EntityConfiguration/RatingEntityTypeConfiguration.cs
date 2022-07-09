@@ -1,13 +1,8 @@
 ﻿using Guardian.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Guardian.Persistence.EntityConfiguration
+namespace Guardian.Infrastructure.Database.EntityConfiguration
 {
     public class RatingEntityTypeConfiguration : IEntityTypeConfiguration<Rating>
     {
@@ -15,25 +10,22 @@ namespace Guardian.Persistence.EntityConfiguration
         {
             builder
                .Property(x => x.Score)
-               .HasMaxLength(1000)
                .IsRequired();
 
-            builder
-                .Property(x => x.UserId)
-                .IsRequired();
+            builder.Property(x => x.Comment)
+                .HasMaxLength(1000);
 
             builder
                 .HasOne(x => x.User)
-                .WithMany(y => y.Ratings);
-
-            builder
-               .Property(x => x.GameId)
-               .IsRequired();
-
+                .WithMany(y => y.Ratings)
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
 
             builder
                  .HasOne(x => x.Game)
-                 .WithMany(x => x.Ratings);
+                 .WithMany(x => x.Ratings)
+                 .HasForeignKey(x => x.GameId)
+                 .IsRequired();
 
         }
     }

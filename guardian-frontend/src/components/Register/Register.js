@@ -92,12 +92,13 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({email, userName, firstName, lastName, password, confirmPassword}),
+                JSON.stringify({ email, userName, firstName, lastName, password, confirmPassword }),
                 {
-                    headers: {'Content-Type' : 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
+
             console.log(response.data);
             console.log(response.accessToken);
             console.log(JSON.stringify(response))
@@ -115,7 +116,19 @@ const Register = () => {
             } else if (e.response?.status === 409) {
                 setErrMsg('Email Taken');
             } else {
-                setErrMsg('Registration Failed')
+                let err;
+                if (typeof e.response.data.errors !== 'undefined') {
+                    err = <div>
+                        {
+                            Object.entries(e.response.data.errors).map(([key, value]) =>
+                                <div>{key}: {value[0]}</div>)
+                        }
+                    </div>
+                } else {
+                    err = e.response.data.ErrorMessage
+                }
+
+                setErrMsg(err)
             }
             errRef.current.focus();
         }
@@ -126,7 +139,7 @@ const Register = () => {
 
             {success ? (
                 <section>
-                    <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo"/>
+                    <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo" />
                     <h1 className="register-h1">Success!</h1>
                     <p className="confirmation-link">{responseMsg}</p>
                     <p>
@@ -135,15 +148,15 @@ const Register = () => {
                 </section>
             ) : (
                 <section>
-                    <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo"/>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo" />
+                    <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
                     <h1 className="register-h1">Create account</h1>
                     <form onSubmit={handleSubmit}>
 
                         <label htmlFor="email">
                             Email:
-                            <FontAwesomeIcon className={validEmail ? "valid" : "hide"} icon={faCheck}/>
-                            <FontAwesomeIcon className={validEmail || !email ? "hide" : "invalid"} icon={faTimes}/>
+                            <FontAwesomeIcon className={validEmail ? "valid" : "hide"} icon={faCheck} />
+                            <FontAwesomeIcon className={validEmail || !email ? "hide" : "invalid"} icon={faTimes} />
                         </label>
                         <input
                             type="text"
@@ -174,8 +187,8 @@ const Register = () => {
 
                         <label htmlFor="firstName">
                             First Name:
-                            <FontAwesomeIcon className={validFirstName ? "valid" : "hide"} icon={faCheck}/>
-                            <FontAwesomeIcon className={validFirstName || !firstName ? "hide" : "invalid"} icon={faTimes}/>
+                            <FontAwesomeIcon className={validFirstName ? "valid" : "hide"} icon={faCheck} />
+                            <FontAwesomeIcon className={validFirstName || !firstName ? "hide" : "invalid"} icon={faTimes} />
                         </label>
                         <input
                             type="text"
@@ -189,15 +202,15 @@ const Register = () => {
                             onBlur={() => setFirstNameFocus(false)}
                         />
                         <p id="namenote" className={firstNameFocus && firstName && !validFirstName ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
+                            <FontAwesomeIcon icon={faInfoCircle} />
                             Only letter allowed.
                         </p>
 
 
                         <label htmlFor="lastName">
                             Last Name:
-                            <FontAwesomeIcon className={validLastName ? "valid" : "hide"} icon={faCheck}/>
-                            <FontAwesomeIcon className={validLastName || !lastName ? "hide" : "invalid"} icon={faTimes}/>
+                            <FontAwesomeIcon className={validLastName ? "valid" : "hide"} icon={faCheck} />
+                            <FontAwesomeIcon className={validLastName || !lastName ? "hide" : "invalid"} icon={faTimes} />
                         </label>
                         <input
                             type="text"
@@ -211,15 +224,15 @@ const Register = () => {
                             onBlur={() => setLastNameFocus(false)}
                         />
                         <p id="namenote" className={lastNameFocus && lastName && !validLastName ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
+                            <FontAwesomeIcon icon={faInfoCircle} />
                             Only letters allowed.
                         </p>
 
 
                         <label htmlFor="password">
                             Password:
-                            <FontAwesomeIcon className={validPassword ? "valid" : "hide"} icon={faCheck}/>
-                            <FontAwesomeIcon className={validPassword || !password ? "hide" : "invalid"} icon={faTimes}/>
+                            <FontAwesomeIcon className={validPassword ? "valid" : "hide"} icon={faCheck} />
+                            <FontAwesomeIcon className={validPassword || !password ? "hide" : "invalid"} icon={faTimes} />
                         </label>
                         <input
                             type="password"
@@ -232,17 +245,17 @@ const Register = () => {
                             onBlur={() => setPasswordFocus(false)}
                         />
                         <p id="pwdnote"
-                           className={passwordFocus && password && !validPassword ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
-                            8 to 24 characters. <br/>
+                            className={passwordFocus && password && !validPassword ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            8 to 24 characters. <br />
                             Must include uppercase and lowercase letters, and a number.
                         </p>
 
 
                         <label htmlFor="confirm_password">
                             Confirm Password:
-                            <FontAwesomeIcon className={validConfirmPassword && confirmPassword ? "valid" : "hide"} icon={faCheck}/>
-                            <FontAwesomeIcon className={validConfirmPassword || !confirmPassword ? "hide" : "invalid"} icon={faTimes}/>
+                            <FontAwesomeIcon className={validConfirmPassword && confirmPassword ? "valid" : "hide"} icon={faCheck} />
+                            <FontAwesomeIcon className={validConfirmPassword || !confirmPassword ? "hide" : "invalid"} icon={faTimes} />
                         </label>
                         <input
                             type="password"
@@ -255,8 +268,8 @@ const Register = () => {
                             onBlur={() => setConfirmPasswordFocus(false)}
                         />
                         <p id="confirmnote"
-                           className={confirmPasswordFocus && !confirmPassword && !validConfirmPassword ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
+                            className={confirmPasswordFocus && !confirmPassword && !validConfirmPassword ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
 
@@ -264,7 +277,7 @@ const Register = () => {
 
 
                         <button disabled={!validEmail || !validPassword || !validConfirmPassword
-                        || !validFirstName || !validLastName ? true : false}>Sign Up</button>
+                            || !validFirstName || !validLastName ? true : false}>Sign Up</button>
                     </form>
                     <p className="note">You are already registered?  <Link to="/login">Sign In</Link></p>
 

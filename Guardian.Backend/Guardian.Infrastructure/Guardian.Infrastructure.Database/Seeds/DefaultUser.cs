@@ -15,8 +15,8 @@ namespace Guardian.Infrastructure.Database.Seeds
                     Id = Constants.SuperAdminUser,
                     UserName = "superadmin",
                     Email = "superadmin@gmail.com",
-                    FirstName = "Amit",
-                    LastName = "Naik",
+                    FirstName = "Super",
+                    LastName = "Admin",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     // Password@123

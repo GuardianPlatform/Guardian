@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Guardian.Domain.Entities
 {
@@ -8,6 +9,8 @@ namespace Guardian.Domain.Entities
         [MaxLength(50)]
         public string CategoryName { get; set; }
 
-        public List<Game> Games { get; set; }
+        [IgnoreDataMember]
+        public List<GameCategory> GameCategories { get; set; }
+        public ICollection<Game> Games { get; set; }
     }
 }
