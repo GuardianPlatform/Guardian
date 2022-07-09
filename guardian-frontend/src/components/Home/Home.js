@@ -18,11 +18,11 @@ const Home = () => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const searchRef = useRef();
+
 
     const token = localStorage.getItem('token');
 
-    const [category, setCategory] = useState('');
+    const [categories, setCategories] = useState([]);
 
 
 
@@ -30,23 +30,23 @@ const Home = () => {
         let isMounted = true;
         const controller = new AbortController();
 
-        const getCategory = async () => {
+        const getCategories = async () => {
             try {
 
-                const response = await axiosPrivate.get(`/category`, {
+                const response = await axiosPrivate.get(`/v1.0/Categories`, {
                     headers : {
                         'Authorization' : `${token}`
                     }
                 });
                 console.log(response.data);
                 console.log(auth);
-                isMounted && setCategory(response.data);
+                isMounted && setCategories(Array.from(response.data));
             } catch (e) {
                 console.log(e);
                 navigate('/login', {state: {from: location}, replace: true})
             }
         }
-        getCategory();
+        getCategories();
 
         return () => {
             isMounted = false;
@@ -67,22 +67,29 @@ return (
             <img src={require('../../assets/logo.png')}
                  className="logo"
                  alt="brand-logo"/>
-
-
-
-
             <div className="logout">
                 <button onClick={logout} className="logout">Logout</button>
-               <FontAwesomeIcon icon={faSignOutAlt} onClick={logout}/>
             </div>
         </header>
-
         {/* HEADER END*/}
-
-
-
-
+        <header className="categories-wrapper">
+            <ul className="category-list">
+                {categories.map((category) =>
+                    <li
+                    key={"category"}
+                    id={`category${category.id}`}
+                    className={"category"}
+                    >
+                        {category.categoryName}
+                    </li>
+                )}
+            </ul>
+        </header>
     </section>
+
+
+
+
 );
 }
 
