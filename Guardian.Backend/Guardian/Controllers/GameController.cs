@@ -1,16 +1,14 @@
-﻿using Guardian.Service.Features.CustomerFeatures.Queries;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Guardian.Service.Features.CustomerFeatures.Commands;
 using Guardian.Domain.Models;
+using Guardian.Service.Features.Customer.Queries;
+using Guardian.Service.Features.Game.Commands;
 
 namespace Guardian.Controllers
 {
-
-    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Games")]
     [ApiVersion("1.0")]
@@ -29,18 +27,21 @@ namespace Guardian.Controllers
         }
 
         [HttpPost]
+       // [Authorize]
         public async Task<IActionResult> Create(CreateGameCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpDelete("{id}")]
+       // [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await Mediator.Send(new DeleteGameCommand { Id = id }));
         }
 
         [HttpPut("{id}")]
+       // [Authorize]        
         public async Task<IActionResult> Update(string id, UpdateGameCommand command)
         {
             if (id != command.Id)

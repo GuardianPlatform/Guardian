@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Guardian.Domain.Entities;
-using Guardian.Persistence.EntityConfiguration;
+using Guardian.Infrastructure.Database.EntityConfiguration;
+using Guardian.Infrastructure.Database.Seeds.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Infrastructure.Database
@@ -22,11 +23,15 @@ namespace Guardian.Infrastructure.Database
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
-        
+
+        public DbSet<GameCategory> GameCategories { get; set; }
+        public DbSet<GameUsers> GameUsers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityTypeConfiguration).Assembly);
+            ApplicationDbContextSeed.Seed(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

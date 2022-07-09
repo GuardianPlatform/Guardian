@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Guardian.Infrastructure.Database.Migrations
+namespace Guardian.Infrastructure.Database.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
     partial class IdentityContextModelSnapshot : ModelSnapshot
@@ -123,27 +123,27 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
+                            Id = "7e2eae01-538f-4f49-ac6d-289a0823a2df",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9074d6b1-5bd0-453f-9fc5-d310660e9732",
+                            ConcurrencyStamp = "6ea79f53-20f0-4634-808f-f4e4b6072ba7",
                             Email = "superadmin@gmail.com",
                             EmailConfirmed = true,
-                            FirstName = "Amit",
-                            LastName = "Naik",
+                            FirstName = "Super",
+                            LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "9861f53d-b7f4-4619-8cbf-6b3b0acc9b14",
+                            SecurityStamp = "94f3250e-a117-4b07-9bc0-bccd6943018a",
                             TwoFactorEnabled = false,
                             UserName = "superadmin"
                         },
                         new
                         {
-                            Id = "453ce003-f5d7-4544-bc53-696470c5e754",
+                            Id = "8c01e411-7de0-4aa5-bb5e-b52ba034f1fa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa1bc35f-b544-4b05-8a97-8d56893504aa",
+                            ConcurrencyStamp = "cabe84ff-8589-4b38-9ccc-a177f3bef1c4",
                             Email = "basicuser@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Basic",
@@ -153,7 +153,7 @@ namespace Guardian.Infrastructure.Database.Migrations
                             NormalizedUserName = "BASICUSER",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4ceeca66-9a52-423a-b2a0-ac31ee3b0bd8",
+                            SecurityStamp = "d5d52d50-835b-4b8a-a146-5bc04e2d8915",
                             TwoFactorEnabled = false,
                             UserName = "basicuser"
                         });
@@ -199,6 +199,36 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.ToTable("Game");
                 });
 
+            modelBuilder.Entity("Guardian.Domain.Entities.GameCategory", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GameId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("GameCategories");
+                });
+
+            modelBuilder.Entity("Guardian.Domain.Entities.GameUsers", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GameId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GameUsers");
+                });
+
             modelBuilder.Entity("Guardian.Domain.Entities.Rating", b =>
                 {
                     b.Property<int>("Id")
@@ -215,17 +245,14 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Rating");
                 });
@@ -297,29 +324,29 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "684dc924-cbb6-4a0a-9f28-6ca38600c01b",
-                            ConcurrencyStamp = "9ebe472b-6ffb-43de-8d8d-fb9254c4fe72",
+                            Id = "37d1c42d-89a7-45fc-90fe-2c4ce0b40cdb",
+                            ConcurrencyStamp = "0f9d4330-70dd-463a-a197-af29d3ceef6e",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "c58cf65c-7984-45f4-a227-98c356386999",
-                            ConcurrencyStamp = "9b6c1e7d-eb31-436e-9588-5c0a4580c2aa",
+                            Id = "d7c451dd-37be-4d67-97fa-00c07cb9f671",
+                            ConcurrencyStamp = "45aa983b-ead8-4caf-9dda-0850a6335ca0",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "8992e41d-e002-4cad-bf4a-867c8638740b",
-                            ConcurrencyStamp = "2251979c-3b1a-45ea-b496-59b5b48bcb1e",
+                            Id = "69c3ba4d-833c-42b0-b730-63473232e493",
+                            ConcurrencyStamp = "4d468748-9f7d-457a-b043-8ff2b95a7c12",
                             Name = "Moderator",
                             NormalizedName = "Moderator"
                         },
                         new
                         {
-                            Id = "468d4c0a-273d-4e44-b677-06d834b4e784",
-                            ConcurrencyStamp = "4fe2e26a-d169-43f0-b6d7-c9d23551bd75",
+                            Id = "578aada2-1a48-442d-b6d7-acfb00c1c55b",
+                            ConcurrencyStamp = "9c618957-a908-4a3e-86e8-d6631ed4e821",
                             Name = "Basic",
                             NormalizedName = "Basic"
                         });
@@ -412,28 +439,28 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "453ce003-f5d7-4544-bc53-696470c5e754",
-                            RoleId = "468d4c0a-273d-4e44-b677-06d834b4e784"
+                            UserId = "8c01e411-7de0-4aa5-bb5e-b52ba034f1fa",
+                            RoleId = "578aada2-1a48-442d-b6d7-acfb00c1c55b"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "684dc924-cbb6-4a0a-9f28-6ca38600c01b"
+                            UserId = "7e2eae01-538f-4f49-ac6d-289a0823a2df",
+                            RoleId = "37d1c42d-89a7-45fc-90fe-2c4ce0b40cdb"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "c58cf65c-7984-45f4-a227-98c356386999"
+                            UserId = "7e2eae01-538f-4f49-ac6d-289a0823a2df",
+                            RoleId = "d7c451dd-37be-4d67-97fa-00c07cb9f671"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "8992e41d-e002-4cad-bf4a-867c8638740b"
+                            UserId = "7e2eae01-538f-4f49-ac6d-289a0823a2df",
+                            RoleId = "69c3ba4d-833c-42b0-b730-63473232e493"
                         },
                         new
                         {
-                            UserId = "3c9f430c-5431-46d4-8b28-1d4260a55bcd",
-                            RoleId = "468d4c0a-273d-4e44-b677-06d834b4e784"
+                            UserId = "7e2eae01-538f-4f49-ac6d-289a0823a2df",
+                            RoleId = "578aada2-1a48-442d-b6d7-acfb00c1c55b"
                         });
                 });
 
@@ -496,6 +523,44 @@ namespace Guardian.Infrastructure.Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Guardian.Domain.Entities.GameCategory", b =>
+                {
+                    b.HasOne("Guardian.Domain.Entities.Category", "Category")
+                        .WithMany("GameCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Guardian.Domain.Entities.Game", "Game")
+                        .WithMany("GameCategories")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("Guardian.Domain.Entities.GameUsers", b =>
+                {
+                    b.HasOne("Guardian.Domain.Entities.Game", "Game")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Guardian.Domain.Entities.User", "User")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Guardian.Domain.Entities.Rating", b =>
                 {
                     b.HasOne("Guardian.Domain.Entities.Game", "Game")
@@ -506,7 +571,7 @@ namespace Guardian.Infrastructure.Database.Migrations
 
                     b.HasOne("Guardian.Domain.Entities.User", "User")
                         .WithMany("Ratings")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Game");
 
@@ -585,13 +650,24 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.Navigation("RefreshTokens");
                 });
 
+            modelBuilder.Entity("Guardian.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("GameCategories");
+                });
+
             modelBuilder.Entity("Guardian.Domain.Entities.Game", b =>
                 {
+                    b.Navigation("GameCategories");
+
+                    b.Navigation("GameUsers");
+
                     b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.User", b =>
                 {
+                    b.Navigation("GameUsers");
+
                     b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618

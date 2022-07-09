@@ -12,6 +12,8 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using Guardian.Filters;
+using Newtonsoft.Json;
 
 namespace Guardian.Infrastructure.Extension
 {
@@ -65,11 +67,14 @@ namespace Guardian.Infrastructure.Extension
         {
             serviceCollection.AddSwaggerGen(setupAction =>
             {
+                setupAction.EnableAnnotations();
+                setupAction.OperationFilter<IgnorePropertyFilter>();
+                
                 setupAction.SwaggerDoc(
                     "OpenAPISpecification",
                     new OpenApiInfo()
                     {
-                        Title = "Onion Architecture WebAPI",
+                        Title = "Guardian WebAPI",
                         Version = "1",
                         Description = "Through this API you can access customer details",
                         License = new OpenApiLicense()
@@ -123,7 +128,10 @@ namespace Guardian.Infrastructure.Extension
         {
             serviceCollection
                 .AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson(x =>
+                {
+                    x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
             
             return serviceCollection;
         }
