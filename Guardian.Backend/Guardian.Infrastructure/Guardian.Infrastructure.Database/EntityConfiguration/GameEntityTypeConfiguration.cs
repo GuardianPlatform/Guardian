@@ -33,6 +33,10 @@ namespace Guardian.Infrastructure.Database.EntityConfiguration
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.Property(x => x.ImageUrl)
+                .HasMaxLength(512)
+                .IsRequired();
+
             builder
                 .HasMany(x => x.Ratings)
                 .WithOne(x => x.Game)

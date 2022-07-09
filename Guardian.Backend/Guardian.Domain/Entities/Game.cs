@@ -10,6 +10,8 @@ namespace Guardian.Domain.Entities
         public string Description { get; set; }
         public string Author { get; set; }
         public string License { get; set; }
+        //Todo: use azure storage blob instead
+        public string ImageUrl { get; set; } 
 
         [IgnoreDataMember]
         public List<GameCategory> GameCategories { get; set; }

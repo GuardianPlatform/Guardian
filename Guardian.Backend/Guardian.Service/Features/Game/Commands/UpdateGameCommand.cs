@@ -16,6 +16,7 @@ namespace Guardian.Service.Features.Game.Commands
         public string Description { get; set; }
         public string Author { get; set; }
         public string License { get; set; }
+        public string ImageUrl { get; set; }
         public List<int> CategoryIds { get; set; }
 
         public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, string>
@@ -38,6 +39,7 @@ namespace Guardian.Service.Features.Game.Commands
                 game.Description = request.Description;
                 game.Author = request.Author;
                 game.License = request.License;
+                game.ImageUrl = request.ImageUrl
 
                 var categoriesToAdd = _context.Categories
                     .AsNoTracking()
