@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Guardian.Domain.Models;
 using Guardian.Service.Features.Customer.Queries;
 using Guardian.Service.Features.Game.Commands;
+using Guardian.Service.Features.Game.Queries;
 
 namespace Guardian.Controllers
 {
