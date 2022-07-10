@@ -12,10 +12,12 @@
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
+    align-items: center;
   }
   li {
     padding: 5px;
   }
+
   button {
     width: auto;
   }
@@ -107,5 +109,14 @@
     font-size: 24px;
     font-style: italic;
     color: blueviolet;
+  }
+
+  p {
+    margin: 5px;
+  }
+
+  li {
+    list-style-type: none;
+    text-align: center;
   }
 }

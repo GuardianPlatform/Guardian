@@ -6,21 +6,13 @@ import { faSearch, faSignOutAlt, faList, faChevronCircleDown } from "@fortawesom
 import axiosPrivate from "../../api/axios";
 import "./Home.scss";
 
-import AuthContext from "../../context/AuthProvider";
-
-import useAuth from "../../hooks/useAuth";
-
-
-
-
 const Home = () => {
-    const { auth } = useAuth();
-    const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
-
     const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    const roles = localStorage.getItem('roles');
 
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setCategory] = useState('');
@@ -38,11 +30,9 @@ const Home = () => {
                         'Authorization': `${token}`
                     }
                 });
-                console.log(response.data);
 
                 isMounted && setCategories(Array.from(response.data));
             } catch (e) {
-                console.log(e);
                 navigate('/login', { state: { from: location }, replace: true })
             }
         }
@@ -84,7 +74,13 @@ const Home = () => {
 
 
     const logout = async () => {
-        setAuth({});
+        localStorage.removeItem('token');
+        localStorage.removeItem('roles');
+        localStorage.removeItem('user');
+        navigate('/login');
+    }
+
+    const login = async () => {
         navigate('/login');
     }
 
@@ -96,6 +92,55 @@ const Home = () => {
         navigate('/game')
     }
 
+    const getRoles = () => {
+        if (typeof roles === 'undefined' || roles === null) {
+            return '';
+        }
+
+        var mappedRoles = Object.entries(roles?.split(",")).map(([key, value]) =>
+            <li>{value}</li>
+        );
+
+        return mappedRoles;
+    }
+
+    const topBar = () => {
+        var splittedRoles = roles?.split(",");
+        if (splittedRoles?.some(x => x.toLowerCase() === "admin")) {
+            return <ol>
+                <li>
+                    <button onClick={addGame} className="add-game">Add game</button>
+                </li>
+                <li>
+                    <button onClick={logout} className="logout">Logout</button>
+                </li>
+            </ol>
+        }
+        else {
+            return <ol>
+                <li>
+                    <button onClick={login} className="login">Log in</button>
+                </li>
+            </ol>
+        }
+    }
+
+    const getInfo = () => {
+        if (typeof roles === 'undefined' || roles === null) {
+            return;
+        }
+
+        return <div>
+            <br></br>
+            <p>Zalogowany jako <h4>{user}</h4></p>
+            <br></br>
+            <h5>Posiadane role: </h5>
+            <ul>
+                {getRoles()}
+            </ul>
+        </div>
+    }
+
     return (
         <section className="home-wrapper">
 
@@ -104,14 +149,7 @@ const Home = () => {
                     className="logo"
                     alt="brand-logo" />
                 <nav>
-                    <ol>
-                        <li>
-                            <button onClick={addGame} className="add-game">Add game</button>
-                        </li>
-                        <li>
-                            <button onClick={logout} className="logout">Logout</button>
-                        </li>
-                    </ol>
+                    {topBar()}
                 </nav>
             </div>
             <div className="content">
@@ -129,6 +167,8 @@ const Home = () => {
                                 </a>
                             </li>
                         )}
+
+                        {getInfo()}
                     </ul>
                 </header>
 
