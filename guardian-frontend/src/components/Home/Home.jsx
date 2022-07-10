@@ -45,17 +45,15 @@ const Home = () => {
             getCategories();
 
         const getGamesForCategory = async (category) => {
-            console.log(category);
             try {
                 const response = await axiosPrivate.get(`/v1.0/Categories/games/${category}`, {
                     headers: {
                         'Authorization': `${token}`
                     }
                 });
-                console.log(response.data);
 
                 var mappedGames = Object.entries(response.data).map(([key, value]) =>
-                    <div className="game" onClick={selectGame}>
+                    <div className="game" key={value.id} onClick={(e) => selectGame(value.id)} style={{ cursor: "pointer" }}>
                         <h4>{value.name}</h4>
                         <img src={value.imageUrl} alt="Game Logo" className="image" />
                         <div className="overlay">{value.description}</div>
@@ -82,7 +80,7 @@ const Home = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('roles');
         localStorage.removeItem('user');
-        navigate('/login');
+        navigate('/');
     }
 
     const login = async () => {
@@ -93,8 +91,8 @@ const Home = () => {
 
     }
 
-    const selectGame = async () => {
-        navigate('/game')
+    const selectGame = (gameId) => {
+        navigate('/game?id=' + gameId)
     }
 
     const getRoles = () => {
@@ -178,7 +176,7 @@ const Home = () => {
                 </header>
 
                 <header className="games-wrapper">
-                    {games.map((game) => game)}
+                    {games}
                 </header>
             </div>
         </section >
