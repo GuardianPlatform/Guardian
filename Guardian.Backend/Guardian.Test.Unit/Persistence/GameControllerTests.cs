@@ -6,6 +6,7 @@ using Guardian.Domain.Models;
 using System.Linq;
 using Guardian.Infrastructure.Database;
 using Guardian.Service.Features.Game.Queries;
+using System;
 
 namespace Guardian.Test.Unit.Persistence
 {
@@ -17,7 +18,7 @@ namespace Guardian.Test.Unit.Persistence
         public async Task PaginationTest_FirstPageThreeItems()
         {
                DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GameTests")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
         var context = new ApplicationDbContext(dbContextOptions);
 
@@ -43,7 +44,7 @@ namespace Guardian.Test.Unit.Persistence
         public async Task PaginationTest_SecondPageOneItem()
         {
             DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-             .UseInMemoryDatabase(databaseName: "GameTests")
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
              .Options;
             var context = new ApplicationDbContext(dbContextOptions);
 
@@ -69,7 +70,7 @@ namespace Guardian.Test.Unit.Persistence
         public async Task PaginationTest_OneItemFirstPage()
         {
             DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-             .UseInMemoryDatabase(databaseName: "GameTests")
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
              .Options;
             var context = new ApplicationDbContext(dbContextOptions);
 
@@ -93,7 +94,7 @@ namespace Guardian.Test.Unit.Persistence
         public async Task PaginationTest_OneItemSecondPage()
         {
             DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-             .UseInMemoryDatabase(databaseName: "GameTests")
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
              .Options;
             var context = new ApplicationDbContext(dbContextOptions);
 
