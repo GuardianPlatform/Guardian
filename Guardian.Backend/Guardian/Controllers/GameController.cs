@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using Guardian.Domain.Enum;
 using Guardian.Domain.Models;
 using Guardian.Service.Features.Customer.Queries;
 using Guardian.Service.Features.Game.Commands;
@@ -23,6 +24,15 @@ namespace Guardian.Controllers
         public async Task<IActionResult> GetAll([FromQuery] PagiantionModel pagination)
         {
             var result = await Mediator.Send( new GetAllGamesQuery { Pagination = pagination });
+
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Moderator")]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id )
+        {
+            var result = await Mediator.Send(new GetGameQuery() { Id = id});
 
             return Ok(result);
         }
