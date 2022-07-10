@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSignOutAlt, faList, faChevronCircleDown } from "@fortawesome/free-solid-svg-icons";
 
+
 import axiosPrivate from "../../api/axios";
 import "./Home.scss";
 
@@ -18,6 +19,9 @@ const Home = () => {
     const [selectedCategory, setCategory] = useState('');
     const [games, setGames] = useState([]);
 
+    if (localStorage.getItem("token") == null) {
+        navigate('/login', { state: { from: location }, replace: true })
+    }
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
@@ -29,6 +33,7 @@ const Home = () => {
                     headers: {
                         'Authorization': `${token}`
                     }
+
                 });
 
                 isMounted && setCategories(Array.from(response.data));
@@ -119,7 +124,7 @@ const Home = () => {
         else {
             return <ol>
                 <li>
-                    <button onClick={login} className="login">Log in</button>
+                    <button onClick={logout} className="logout">Logout</button>
                 </li>
             </ol>
         }
