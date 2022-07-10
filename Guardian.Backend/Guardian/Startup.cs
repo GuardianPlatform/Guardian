@@ -18,6 +18,7 @@ using Serilog;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 namespace Guardian
 {
@@ -52,16 +53,15 @@ namespace Guardian
 
             services.AddAutoMapper();
 
-            services.AddEventHub();
+            services.AddEventHub(Configuration);
+
+            services.AddMicroservices(Configuration);
 
             services.AddScopedServices();
 
             services.AddTransientServices();
 
             services.AddSwaggerOpenAPI();
-
-            services.AddMailSetting(Configuration)
-                .AddEventHubSettings(Configuration);
 
             services.AddServiceLayer();
 

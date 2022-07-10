@@ -25,7 +25,7 @@ namespace Guardian.Infrastructure.Database.Seeds.Contexts
         private static void CreateBasicUsers(ModelBuilder modelBuilder)
         {
             var users = DefaultUser.IdentityBasicUserList();
-            modelBuilder.Entity<ApplicationUser>().HasData(users);
+            modelBuilder.Entity<User>().HasData(users);
         }
 
         private static void MapUserRole(ModelBuilder modelBuilder)

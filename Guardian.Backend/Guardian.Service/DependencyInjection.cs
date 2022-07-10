@@ -16,7 +16,9 @@ using System.Reflection;
 using System.Text;
 using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Email;
+using Guardian.Service.Behaviours;
 using Guardian.Service.Implementation;
+using MediatR.Pipeline;
 
 namespace Guardian.Service
 {
@@ -27,6 +29,7 @@ namespace Guardian.Service
             // or you can use assembly in Extension method in Infra layer with below command
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
         }
 
         public static void AddIdentityService(this IServiceCollection services, IConfiguration configuration)

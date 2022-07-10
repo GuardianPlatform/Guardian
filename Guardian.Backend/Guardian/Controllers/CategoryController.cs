@@ -2,8 +2,7 @@
 using Guardian.Domain.Models;
 using Guardian.Service.Features.Category.Commands;
 using Guardian.Service.Features.Category.Queries;
-using Guardian.Service.Features.Game.Commands;
-using Guardian.Service.Features.Product.Queries;
+using Guardian.Service.Features.Game.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,7 +49,7 @@ namespace Guardian.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody]CreateCategoryCommand command)
         {
             var result = await Mediator.Send(command);
@@ -63,7 +62,7 @@ namespace Guardian.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteCategoryCommand() { Id = id }));
@@ -76,7 +75,7 @@ namespace Guardian.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Update(int id, UpdateCategoryCommand command)
         {
             if (id != command.Id)

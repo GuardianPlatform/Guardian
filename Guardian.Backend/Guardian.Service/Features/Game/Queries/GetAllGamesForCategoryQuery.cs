@@ -8,7 +8,7 @@ using Guardian.Infrastructure.Database;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Guardian.Service.Features.Product.Queries
+namespace Guardian.Service.Features.Game.Queries
 {
     public class GetAllGamesForCategoryQuery : IRequest<IEnumerable<Domain.Entities.Game>>
     {

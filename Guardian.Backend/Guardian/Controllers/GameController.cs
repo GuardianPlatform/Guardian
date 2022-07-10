@@ -38,21 +38,21 @@ namespace Guardian.Controllers
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> Create(CreateGameCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpDelete("{id}")]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await Mediator.Send(new DeleteGameCommand { Id = id }));
         }
 
         [HttpPut("{id}")]
-       // [Authorize]        
+        [Authorize]        
         public async Task<IActionResult> Update(string id, UpdateGameCommand command)
         {
             if (id != command.Id)

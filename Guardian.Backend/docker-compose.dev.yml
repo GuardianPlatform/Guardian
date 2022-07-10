@@ -13,6 +13,19 @@ services:
     networks:
       - sharpdj-net
 
+  guardian.logging.api:
+    image: ${DOCKER_REGISTRY-}guardianloggingapi
+    build:
+      context: .
+      dockerfile: Guardian.Microservices/Guardian.Logging.Api/Dockerfile
+    depends_on:
+      - broker
+      - zookeeper
+      - mssqldb
+    networks:
+      - sharpdj-net
+
+
 # Kafka KRaft compose
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
