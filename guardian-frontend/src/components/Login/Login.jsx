@@ -1,15 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import useAuth from "../../hooks/useAuth";
 import "./Login.css";
 
 import axios from "../../api/axios";
 const LOGIN_URL = "Account/authenticate";
 
 const Login = () => {
-
-    const {setAuth } = useAuth();
-
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -29,7 +25,7 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [email,password]);
+    }, [email, password]);
 
 
 
@@ -38,20 +34,25 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({email, password}),
+                JSON.stringify({ email, password }),
                 {
-                    headers: {'Content-Type' : 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            const token = response?.data;
+
+            const data = response?.data.data;
+            const token = data.jwToken;
+            const roles = data.roles;
+            const user = data.userName;
+
             localStorage.setItem('token', `Bearer ${token}`);
-            setAuth({email, password, token});
+            localStorage.setItem('roles', roles)
+            localStorage.setItem('user', user)
+
             setEmail('');
             setPassword('');
-            navigate(from, {replace: true});
-            console.log(`access token to: ${token}`);
+            navigate(from, { replace: true });
         } catch (e) {
             if (!e?.response) {
                 setErrMsg("No Server Response");
@@ -60,15 +61,22 @@ const Login = () => {
             } else {
                 setErrMsg('Login Failed');
             }
-            errRef.current.focus();
+            if (typeof e.response.data.errors !== 'undefined') {
+                setErrMsg(e.response.data.errors);
+            } else if (typeof e.response.data.ErrorMessage !== 'undefined') {
+                setErrMsg(e.response.data.ErrorMessage)
+            }
+            errRef?.current?.focus();
         }
 
     }
     return (
 
         <section>
-            <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo"/>
+            <img src={require('../../assets/logo.png')} className="logo" alt="brand-logo" />
             <h1>Guardian Games</h1>
+            <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
+
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input
@@ -92,7 +100,7 @@ const Login = () => {
                 <button>Sign In</button>
             </form>
             <p>
-                You don't have an account yet? <br/>
+                You don't have an account yet? <br />
                 <Link to="/register">Sign Up</Link>
             </p>
         </section>
