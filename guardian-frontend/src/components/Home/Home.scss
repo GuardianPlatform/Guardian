@@ -1,25 +1,46 @@
-.top {
-    display:flex;
-}
-
 .home-wrapper {
   display: flex;
-  justify-content: center;
-  .logo {
-    height: 17vh;
-    position: absolute;
-    top: 5vh;
-    left: 3vw;
+  padding-top: 10px;
+
+  .top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+  }
+  li {
+    padding: 5px;
+  }
+  button {
+    width: auto;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+    margin: 2rem;
+  }
+
   .categories-wrapper {
-    
     display: flex;
     flex-direction: column;
     align-self: flex-start;
     justify-self: center;
+
     .category-list {
       list-style: none;
     }
+
     .category {
       font-size: 2rem;
       padding: 1rem;
@@ -31,4 +52,60 @@
     }
   }
 
+  .content {
+    width: 100%;
+    display: flex;
+  }
+
+  .games-wrapper {
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 3rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .game {
+    width: 350px;
+    position: relative;
+    margin: 5px;
+
+    img {
+      max-width: 350px;
+      max-height: 350px;
+      object-fit: fill;
+      overflow: hidden;
+      border: 1px solid #000;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 5px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.8);
+    color: #f1f1f1;
+    width: 100%;
+    transition: 0.5s ease;
+    opacity: 0;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .game:hover .overlay {
+    opacity: 1;
+  }
+
+  h4 {
+    font-size: 24px;
+    font-style: italic;
+    color: blueviolet;
+  }
 }
