@@ -14,22 +14,24 @@ namespace Guardian.Test.Unit.Persistence
     {
         
         [Test]
-        public async Task Test()
+        public async Task PaginationTestFirstPage()
         {
-               DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+            DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "GameTests")
                 .Options;
-        var context = new ApplicationDbContext(dbContextOptions);
+            var context = new ApplicationDbContext(dbContextOptions);
 
             context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
             context.Add(new Game { Name = "gra2", Description = "dsc2", Author = "aa2" });
             context.Add(new Game { Name = "gra3", Description = "dsc3", Author = "aa3" });
             context.Add(new Game { Name = "gra4", Description = "dsc4", Author = "aa4" });
             context.SaveChanges();
+
             const int MaxGamescount = 3;
+            const int Page = 0;
             var request = new GetAllGamesQuery()
             {
-                Pagination = new PagiantionModel(0, MaxGamescount)
+                Pagination = new PagiantionModel(Page, MaxGamescount)
             };
 
             var service = new GetAllGamesQuery.GetAllGamesQueryHandler(context);
@@ -37,6 +39,34 @@ namespace Guardian.Test.Unit.Persistence
             var result = await service.Handle(request, default);
 
             Assert.AreEqual(MaxGamescount, result.Count());
+        }
+
+        [Test]
+        public async Task PaginationTestSecondPage()
+        {
+            DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase(databaseName: "GameTests")
+             .Options;
+            var context = new ApplicationDbContext(dbContextOptions);
+
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
+            context.SaveChanges();
+
+            const int MaxGamescount = 3;
+            const int Page = 1;
+            var request = new GetAllGamesQuery()
+            {
+                Pagination = new PagiantionModel(Page, MaxGamescount)
+            };
+
+            var service = new GetAllGamesQuery.GetAllGamesQueryHandler(context);
+
+            var result = await service.Handle(request, default);
+
+            Assert.AreEqual(1, result.Count());
         }
 
 
