@@ -69,7 +69,28 @@ namespace Guardian.Test.Unit.Persistence
             Assert.AreEqual(1, result.Count());
         }
 
+        [Test] public async Task PagginationTestOneGameFirstPage() 
+        {   
+            DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "GameTests")
+                .Options; 
+            var context = new ApplicationDbContext(dbContextOptions); 
 
-    }
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" }); 
+            context.SaveChanges(); 
+
+            const int MaxGamescount = 3; 
+            const int Page = 0; 
+            var request = new GetAllGamesQuery() 
+            { 
+                Pagination = new PagiantionModel(Page, MaxGamescount) 
+            }; 
+
+            var service = new GetAllGamesQuery.GetAllGamesQueryHandler(context); 
+
+            var result = await service.Handle(request, default); 
+
+            Assert.AreEqual(1, result.Count()); }
+        }
 
 }
