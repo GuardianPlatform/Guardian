@@ -46,7 +46,7 @@ namespace Guardian.Controllers
 
         [HttpDelete("{id}")]
        // [Authorize]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteGameCommand { Id = id }));
         }
