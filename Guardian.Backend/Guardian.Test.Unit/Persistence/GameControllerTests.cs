@@ -112,6 +112,32 @@ namespace Guardian.Test.Unit.Persistence
 
             Assert.AreEqual(0, result.Count());
         }
+
+        [Test]
+        public async Task GetGameByIdTest()
+        {
+            DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+             .Options;
+            var context = new ApplicationDbContext(dbContextOptions);
+
+            context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
+            context.Add(new Game { Name = "gra2", Description = "dsc2", Author = "aa2" });
+            context.Add(new Game { Name = "gra3", Description = "dsc3", Author = "aa3" });
+            context.Add(new Game { Name = "gra4", Description = "dsc4", Author = "aa4" });
+            context.SaveChanges();
+
+            var request = new GetGameQuery()
+            {
+                Id = 3
+            };
+            var ListOfGames = context.Games.ToList();
+            var service = new GetGameQuery.GetGameQueryHandler(context);
+
+            var result = await service.Handle(request, default);
+
+            Assert.AreEqual(ListOfGames[2].Id, result.Id);
+        }
     }
 
 }
