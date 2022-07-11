@@ -7,7 +7,7 @@ namespace Guardian.Infrastructure.Database.Seeds.Contexts
 {
     public static class IdentityContextSeed
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
             CreateRoles(modelBuilder);
 
@@ -18,13 +18,13 @@ namespace Guardian.Infrastructure.Database.Seeds.Contexts
 
         private static void CreateRoles(ModelBuilder modelBuilder)
         {
-            List<IdentityRole> roles = DefaultRoles.IdentityRoleList();
+           var roles = DefaultRoles.IdentityRoleList();
             modelBuilder.Entity<IdentityRole>().HasData(roles);
         }
 
         private static void CreateBasicUsers(ModelBuilder modelBuilder)
         {
-            List<ApplicationUser> users = DefaultUser.IdentityBasicUserList();
+            var users = DefaultUser.IdentityBasicUserList();
             modelBuilder.Entity<ApplicationUser>().HasData(users);
         }
 
