@@ -53,7 +53,7 @@ namespace Guardian.Controllers
 
         [HttpPut("{id}")]
        // [Authorize]        
-        public async Task<IActionResult> Update(string id, UpdateGameCommand command)
+        public async Task<IActionResult> Update(int id, UpdateGameCommand command)
         {
             if (id != command.Id)
             {
