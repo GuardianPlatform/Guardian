@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Service.Features.Game.Commands
 {
-    public class CreateGameCommand : IRequest<string>
+    public class CreateGameCommand : IRequest<Domain.Entities.Game>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace Guardian.Service.Features.Game.Commands
 
         public List<int> CategoryIds { get; set; }
 
-        public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, string>
+        public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Domain.Entities.Game>
         {
             private readonly IApplicationDbContext _context;
             public CreateGameCommandHandler(IApplicationDbContext context)
@@ -28,7 +28,7 @@ namespace Guardian.Service.Features.Game.Commands
                 _context = context;
             }
 
-            public async Task<string> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+            public async Task<Domain.Entities.Game> Handle(CreateGameCommand request, CancellationToken cancellationToken)
             {
                 var exist = await _context.Games.AnyAsync(x => x.Name == request.Name, cancellationToken);
                 if (exist)
@@ -43,19 +43,17 @@ namespace Guardian.Service.Features.Game.Commands
                 game.GameCategories = new List<GameCategory>();
 
                 var categoriesToAdd = _context.Categories
-                    .AsNoTracking()
+                    .AsTracking()
                     .Where(x => request.CategoryIds.Contains(x.Id)).ToList();
 
                 game.GameCategories = categoriesToAdd
                     .Select(categoryId => new GameCategory() { CategoryId = categoryId.Id, Game = game })
                     .ToList();
 
-                _context.Games.Add(game);
+                var result = _context.Games.Add(game).Entity;
                 await _context.SaveChangesAsync();
 
-
-
-                return game.Id.ToString();
+                return result;
             }
         }
     }
