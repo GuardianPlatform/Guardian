@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,7 +15,7 @@ using FluentAssertions.Common;
 using Guardian.Domain.Enum;
 using Guardian.Infrastructure.Communication;
 using Guardian.Infrastructure.Database;
-using Guardian.Test.Integration.WebFactory.UserClaims;
+using Guardian.Test.Integration.WebFactory.Authentication.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -22,21 +24,44 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using LogLevel = Guardian.Logging.Api.LogLevel;
+using LogLevel = Guardian.Logging.Contract.LogLevel;
 
 namespace Guardian.Test.Integration.WebFactory
 {
     public class GuardianWebApplicationFactory : WebApplicationFactory<Startup>
     {
-        private IUserClaims _authorizationUserClaims = new AuthorizedUserClaims();
+        private IUserClaims _authorizationUserClaims;
 
-        public void SetAuthorizationRoles(IEnumerable<Roles> customRoles)
+        private GuardianWebApplicationFactory()
+        { }
+
+        public static GuardianWebApplicationFactory Authorized()
         {
-            var roleClaims = customRoles.Select(x => new Claim(ClaimTypes.Role, x.ToString()));
-            SetAuthorization(new CustomUserClaims(roleClaims));
+            var result = new GuardianWebApplicationFactory();
+            result.SetAuthorization(new AuthorizedUserClaims());
+
+            return result;
         }
 
-        public void SetAuthorization(IUserClaims authorizationUserClaims)
+        public static GuardianWebApplicationFactory Unauthorized()
+        {
+            var result = new GuardianWebApplicationFactory();
+            result.SetAuthorization(new UnauthorizedUserClaims());
+
+            return result;
+        }
+
+        public static GuardianWebApplicationFactory CustomAuthorizationRoles(IEnumerable<Roles> customRoles)
+        {
+            var roleClaims = customRoles.Select(x => new Claim(ClaimTypes.Role, x.ToString()));
+
+            var result = new GuardianWebApplicationFactory();
+            result.SetAuthorization(new CustomUserClaims(roleClaims));
+
+            return result;
+        }
+
+        private void SetAuthorization(IUserClaims authorizationUserClaims)
         {
             _authorizationUserClaims = authorizationUserClaims;
         }
@@ -49,7 +74,11 @@ namespace Guardian.Test.Integration.WebFactory
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.ConfigureServices(services =>
+            File.Delete(Path.Combine(AppContext.BaseDirectory, "Application.db"));
+            File.Delete(Path.Combine(AppContext.BaseDirectory, "Identity.db"));
+
+
+            builder.ConfigureTestServices(services =>
             {
                 var descriptorApplication = services.SingleOrDefault(
                     d => d.ServiceType ==
@@ -65,12 +94,12 @@ namespace Guardian.Test.Integration.WebFactory
 
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseSqlite($"Data Source=Application.db;Cache=Shared");
                 });
 
                 services.AddDbContext<IdentityContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseSqlite($"Data Source=Identity.db;Cache=Shared");
                 });
 
                 var sp = services.BuildServiceProvider();
@@ -84,6 +113,12 @@ namespace Guardian.Test.Integration.WebFactory
 
                     applicationContext.Database.EnsureCreated();
                     identityContext.Database.EnsureCreated();
+
+                    if (SqliteDatabaseFacadeExtensions.IsSqlite(applicationContext.Database) == false ||
+                        SqliteDatabaseFacadeExtensions.IsSqlite(identityContext.Database) == false)
+                    {
+                        throw new Exception("Problem with InMemory database mock");
+                    }
 
                     try
                     {

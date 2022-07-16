@@ -1,4 +1,4 @@
-﻿namespace Guardian.Logging.Api
+﻿namespace Guardian.Logging.Contract
 {
     public enum LogLevel
     {
