@@ -7,30 +7,28 @@ using System.Threading.Tasks;
 
 namespace Guardian.Service.Features.Game.Commands
 {
-    public class DeleteGameCommand : IRequest<int>
+    public class DeleteGameCommand : IRequest<string>
     {
-        public int Id { get; set; }
-        public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, int>
+        public string Id { get; set; }
+        public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, string>
         {
             private readonly IApplicationDbContext _context;
             public DeleteGameCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
             {
                 var game = await _context.Games
-                    .Where(a => a.Id == request.Id)
+                    .Where(a => a.Id.ToString() == request.Id)
                     .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
                 if (game == null) 
                     return default;
-
-                var deletedGameId = game.Id;
+                
                 _context.Games.Remove(game);
                 await _context.SaveChangesAsync();
-                
-                return deletedGameId;
+                return game.Id.ToString();
             }
         }
     }

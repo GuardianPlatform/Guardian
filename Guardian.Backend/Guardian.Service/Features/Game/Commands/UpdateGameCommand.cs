@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Guardian.Service.Features.Game.Commands
 {
-    public class UpdateGameCommand : IRequest<int>
+    public class UpdateGameCommand : IRequest<string>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
@@ -19,16 +19,16 @@ namespace Guardian.Service.Features.Game.Commands
         public string ImageUrl { get; set; }
         public List<int> CategoryIds { get; set; }
 
-        public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, int>
+        public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, string>
         {
             private readonly IApplicationDbContext _context;
             public UpdateGameCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
             {
-                var game = _context.Games.FirstOrDefault(a => a.Id == request.Id);
+                var game = _context.Games.FirstOrDefault(a => a.Id.ToString() == request.Id);
 
                 if (game == null)
                 {
@@ -52,7 +52,7 @@ namespace Guardian.Service.Features.Game.Commands
 
                 _context.Games.Update(game);
                 await _context.SaveChangesAsync();
-                return game.Id;
+                return game.Id.ToString();
             }
         }
     }
