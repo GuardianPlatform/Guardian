@@ -1,9 +1,8 @@
 ﻿using Guardian.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace Guardian.Infrastructure.Database.Seeds.Contexts
+namespace Guardian.Infrastructure.Database.Seeds.IdentityContext
 {
     public static class IdentityContextSeed
     {
