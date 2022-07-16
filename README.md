@@ -37,9 +37,11 @@ Auth is required only for Guardian.Api. There are 2 important requests:
 ![image](https://user-images.githubusercontent.com/20387650/179373949-96237111-f519-4cbd-a84c-a99d1ad8a942.png)
 
 - register - we can create a new user, with a basic role
-- authenticate - we can get a JWToken and authorize ourselves. To authorize click this button
+- authenticate - we can get a JWToken and authorize ourselves.
 
 ![image](https://user-images.githubusercontent.com/20387650/179374107-bf0dfe2e-e3fa-4dfd-8a69-b5e2a744cf9f.png)
+
+![image](https://user-images.githubusercontent.com/20387650/179374242-d55fe62f-1f84-4ceb-9dbd-15038125a1ac.png)
 
 Accounts created by default:
 ```
