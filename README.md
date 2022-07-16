@@ -57,6 +57,8 @@ Projekt utworzony został zaprojektowany wykorzystując „Onion Architecture”
 - Unit Tests
 - Integration Tests
 
+![image](https://user-images.githubusercontent.com/20387650/179355166-10e79910-221d-4317-9d30-371ae82a7979.png)
+
 Domain Entities – warstwa ta odpowiada za modele biznesowe. Jest to „coreowa” biblioteka dla projektu, ponieważ odpowiada ona za obiekty oraz ich właściwości. W solucji można znaleźć projekt pod nazwą”Guardian.Domain”.
 
 Domain Service – warstwa odpowiedzialna za logikę biznesową. Implementuje ona zachowania serwisów oraz funkcjonalności aplikacji dla modeli biznesowych. Ze względu na wykorzystanie wzorca CQRS implementuje ona również zapytania do bazy danych – użycie wzorca „repository” byłoby tutaj zbędne. Wykorzystywana w projekcie biblioteka Entity Framework Core jest już swojego rodzaju implementacją patternu „repository” oraz „unit of work” zgodnie z dokumentacją Microsoftu. W solucji można znaleźć projekt pod nazwą ”Guardian.Service”.
