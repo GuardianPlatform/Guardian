@@ -9,7 +9,8 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation" Version="9.5.3" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.3" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.2.0" />
@@ -19,8 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Guardian.Domain\Guardian.Domain.csproj" />
+    <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.Communication\Guardian.Infrastructure.Communication.csproj" />
     <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.Database\Guardian.Infrastructure.Database.csproj" />
     <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.Email\Guardian.Infrastructure.Email.csproj" />
+    <ProjectReference Include="..\Guardian.Infrastructure\Guardian.Infrastructure.EventHub\Guardian.Infrastructure.EventHub.csproj" />
   </ItemGroup>
 
 </Project>

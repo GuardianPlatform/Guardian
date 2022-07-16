@@ -12,7 +12,8 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using Guardian.Filters;
+using Guardian.Infrastructure.Communication;
+using Guardian.Service.Filters;
 using Newtonsoft.Json;
 
 namespace Guardian.Infrastructure.Extension
@@ -44,9 +45,10 @@ namespace Guardian.Infrastructure.Extension
             return serviceCollection.AddSingleton(mapper);
         }
 
-        public static IServiceCollection AddEventHub(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddEventHub(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             return serviceCollection
+                .AddEventHubSettings(configuration)
                 .AddSingleton(typeof(IEventHubBuilder<>), typeof(EventHubBuilder<>));
         }
 
@@ -117,11 +119,19 @@ namespace Guardian.Infrastructure.Extension
                 configuration.GetSection("MailSettings"));
         }
 
-        public static IServiceCollection AddEventHubSettings(this IServiceCollection serviceCollection,
+        private static IServiceCollection AddEventHubSettings(this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
             return serviceCollection.Configure<EventHubSettings>(
                 configuration.GetSection(EventHubSettings.EventHubSettingsName));
+        }
+
+        public static IServiceCollection AddMicroservices(this IServiceCollection serviceCollection,
+            IConfiguration configuration)
+        {
+            return serviceCollection
+                .Configure<MicroservicesSettings>(configuration.GetSection(MicroservicesSettings.MicroservicesSettingsName))
+                .AddSingleton<ILoggingApiClient, LoggingApiClient>();
         }
 
         public static IServiceCollection AddController(this IServiceCollection serviceCollection)

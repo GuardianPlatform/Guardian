@@ -18,7 +18,7 @@ namespace Guardian.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> SendMail([FromForm] MailRequest request)
         {
-            await mailService.SendEmailAsync(request);
+            
             return Ok();
         }
 

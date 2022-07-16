@@ -1,13 +1,12 @@
 ﻿using Guardian.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace Guardian.Infrastructure.Database.Seeds.Contexts
+namespace Guardian.Infrastructure.Database.Seeds.IdentityContext
 {
     public static class IdentityContextSeed
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
             CreateRoles(modelBuilder);
 
@@ -18,14 +17,14 @@ namespace Guardian.Infrastructure.Database.Seeds.Contexts
 
         private static void CreateRoles(ModelBuilder modelBuilder)
         {
-            List<IdentityRole> roles = DefaultRoles.IdentityRoleList();
+           var roles = DefaultRoles.IdentityRoleList();
             modelBuilder.Entity<IdentityRole>().HasData(roles);
         }
 
         private static void CreateBasicUsers(ModelBuilder modelBuilder)
         {
-            List<ApplicationUser> users = DefaultUser.IdentityBasicUserList();
-            modelBuilder.Entity<ApplicationUser>().HasData(users);
+            var users = DefaultUser.IdentityBasicUserList();
+            modelBuilder.Entity<User>().HasData(users);
         }
 
         private static void MapUserRole(ModelBuilder modelBuilder)

@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Guardian.Domain\Guardian.Domain.csproj" />
     <ProjectReference Include="..\..\Guardian.Service\Guardian.Service.csproj" />
+    <ProjectReference Include="..\Guardian.Infrastructure.Communication\Guardian.Infrastructure.Communication.csproj" />
     <ProjectReference Include="..\Guardian.Infrastructure.EventHub\Guardian.Infrastructure.EventHub.csproj" />
   </ItemGroup>
 

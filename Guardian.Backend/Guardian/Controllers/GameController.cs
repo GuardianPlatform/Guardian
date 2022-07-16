@@ -32,28 +32,29 @@ namespace Guardian.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id )
         {
+            var tmp = HttpContext.User.Claims;
             var result = await Mediator.Send(new GetGameQuery() { Id = id});
 
             return Ok(result);
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize(Roles = "Moderator")]
         public async Task<IActionResult> Create(CreateGameCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpDelete("{id}")]
-       // [Authorize]
-        public async Task<IActionResult> Delete(int id)
+        [Authorize(Roles = "Moderator")]
+        public async Task<IActionResult> Delete(string id)
         {
             return Ok(await Mediator.Send(new DeleteGameCommand { Id = id }));
         }
 
         [HttpPut("{id}")]
-       // [Authorize]        
-        public async Task<IActionResult> Update(int id, UpdateGameCommand command)
+        [Authorize(Roles = "Moderator")]
+        public async Task<IActionResult> Update(string id, UpdateGameCommand command)
         {
             if (id != command.Id)
             {

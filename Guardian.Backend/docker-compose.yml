@@ -6,3 +6,9 @@ services:
     build:
       context: .
       dockerfile: Guardian/Dockerfile
+
+  guardian.logging.api:
+    image: ${DOCKER_REGISTRY-}guardianloggingapi
+    build:
+      context: .
+      dockerfile: Guardian.Microservices/Guardian.Logging.Api/Dockerfile

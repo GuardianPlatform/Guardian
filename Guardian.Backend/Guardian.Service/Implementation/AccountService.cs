@@ -21,6 +21,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Guardian.Domain;
+using Guardian.Service.Features.Email.Commands;
+using MediatR;
 
 namespace Guardian.Service.Implementation
 {
@@ -33,13 +35,16 @@ namespace Guardian.Service.Implementation
         private readonly JWTSettings _jwtSettings;
         private readonly IDateTimeService _dateTimeService;
         private readonly IFeatureManager _featureManager;
+        private readonly IMediator _mediator;
+
         public AccountService(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IOptions<JWTSettings> jwtSettings,
             IDateTimeService dateTimeService,
             SignInManager<ApplicationUser> signInManager,
             IEmailService emailService,
-            IFeatureManager featureManager)
+            IFeatureManager featureManager,
+            IMediator mediator)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -48,6 +53,7 @@ namespace Guardian.Service.Implementation
             _signInManager = signInManager;
             _emailService = emailService;
             _featureManager = featureManager;
+            _mediator = mediator;
         }
 
         public async Task<Response<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request, string ipAddress)
@@ -111,7 +117,15 @@ namespace Guardian.Service.Implementation
 
             if (await _featureManager.IsEnabledAsync(nameof(FeatureManagement.EnableEmailService)))
             {
-                await _emailService.SendEmailAsync(new MailRequest() { ToEmail = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
+                await _mediator.Publish(new SendEmailCommand()
+                {
+                    MailRequest = new MailRequest()
+                    {
+                        ToEmail = user.Email,
+                        Body = $"Please confirm your account by visiting this URL {verificationUri}",
+                        Subject = "Confirm Registration"
+                    }
+                });
             }
 
             return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
@@ -176,7 +190,7 @@ namespace Guardian.Service.Implementation
             var user = await _userManager.FindByIdAsync(userId);
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            
+
             if (result.Succeeded == false)
                 throw new ApiException($"An error occured while confirming {user.Email}.");
 
@@ -214,11 +228,11 @@ namespace Guardian.Service.Implementation
         public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
         {
             var account = await _userManager.FindByEmailAsync(model.Email);
-            if (account == null) 
+            if (account == null)
                 throw new ApiException($"No Accounts Registered with {model.Email}.");
-            
+
             var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
-            
+
             if (result.Succeeded == false)
                 throw new ApiException($"Error occured while reseting the password.");
 

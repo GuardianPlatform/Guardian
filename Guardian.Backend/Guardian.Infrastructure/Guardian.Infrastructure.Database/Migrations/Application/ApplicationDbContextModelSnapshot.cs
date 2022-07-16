@@ -98,6 +98,44 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "EA Games",
+                            Description = "World War II shooter game.",
+                            ImageUrl = "https://image.ceneostatic.pl/data/products/10116336/i-medal-of-honor-digital.jpg",
+                            License = "-",
+                            Name = "Medal of Honor"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Ea Games",
+                            Description = "Racing game with super fast cars.",
+                            ImageUrl = "https://store-images.s-microsoft.com/image/apps.50422.14208985329983396.5216b3ae-22f3-400f-ad5d-45a1eb1686ba.6d0f6755-43ce-4902-8fe6-3939b2e29e4d?q=90&w=480&h=270",
+                            License = "-",
+                            Name = "Need for Speed"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "EA Sports",
+                            Description = "Football game.",
+                            ImageUrl = "https://s2.tvp.pl/images2/2/7/8/uid_2787b3f1460aaecdbefc4818c064be541652200255438_width_1280_play_0_pos_0_gs_0_height_720_fifa-22-jest-aktualnie-najnowsza-wersja-gry-fot-ea-sports.jpg",
+                            License = "-",
+                            Name = "FIFA"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "CD Projekt",
+                            Description = "Farm simulator.",
+                            ImageUrl = "https://smartcdkeys.com/image/data/products/farming-simulator-22/cover/farming-simulator-22-smartcdkeys-cheap-cd-key-cover.jpg",
+                            License = "-",
+                            Name = "Farming Simulator"
+                        });
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.GameCategory", b =>
@@ -113,6 +151,28 @@ namespace Guardian.Infrastructure.Database.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("GameCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            GameId = 1,
+                            CategoryId = 5
+                        },
+                        new
+                        {
+                            GameId = 2,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            GameId = 3,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            GameId = 4,
+                            CategoryId = 3
+                        });
                 });
 
             modelBuilder.Entity("Guardian.Domain.Entities.GameUsers", b =>

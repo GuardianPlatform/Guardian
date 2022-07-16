@@ -10,7 +10,10 @@ namespace Guardian.Infrastructure.Database
         DbSet<User> Users { get; set; }
         DbSet<Rating> Ratings { get; set; }
         DbSet<Game> Games { get; set; }
-        
+
+        DbSet<GameCategory> GameCategories { get; set; }
+        DbSet<GameUsers> GameUsers { get; set; }
+
 
         Task<int> SaveChangesAsync();
     }
