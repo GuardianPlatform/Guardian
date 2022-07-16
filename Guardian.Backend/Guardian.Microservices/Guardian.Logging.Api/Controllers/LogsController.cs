@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Logging.Contract;
@@ -20,7 +21,13 @@ namespace Guardian.Logging.Api.Controllers
             await semaphore.WaitAsync();
             try
             {
-                await System.IO.File.AppendAllTextAsync($"{Environment.CurrentDirectory}\\log.txt", message);
+                await System.IO.File.AppendAllTextAsync(Path.Combine(AppContext.BaseDirectory, "logs.txt"), message);
+            }
+            catch (Exception e)
+            {
+                //just for a dev purpose
+                await Task.Delay(100);
+                await Post(log);
             }
             finally
             {
