@@ -1,6 +1,15 @@
-# Guardian
 
 [![.NET](https://github.com/GuardianPlatform/Guardian/actions/workflows/dotnet.yml/badge.svg)](https://github.com/GuardianPlatform/Guardian/actions/workflows/dotnet.yml) [![CodeQL](https://github.com/GuardianPlatform/Guardian/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GuardianPlatform/Guardian/actions/workflows/codeql-analysis.yml)
+
+---
+
+## Table of Contents
+1. [Guardian](#guardian)
+2. [Backend Build](#how-to-build-backend-project)
+3. [Frontend Buld](#how-to-build-frontend-project)
+4. [Project description (PL)](#project-description-pl)
+
+## Guardian
 
 Guardian is a fanmade video game digital distribution service inspired by Valve platform Steam. This project is just a prototype for studying purposes.
 
