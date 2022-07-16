@@ -7,8 +7,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Guardian.Test.Integration.WebFactory.Authentication.Claims;
 using Microsoft.Extensions.Logging;
-using Guardian.Test.Integration.WebFactory.UserClaims;
 
 namespace Guardian.Test.Integration.WebFactory
 {
