@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Guardian.Infrastructure.Database.Migrations
+namespace Guardian.Infrastructure.Database.Migrations.Application
 {
     public partial class addgameseeding : Migration
     {

@@ -12,8 +12,8 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using Guardian.Filters;
 using Guardian.Infrastructure.Communication;
+using Guardian.Service.Filters;
 using Newtonsoft.Json;
 
 namespace Guardian.Infrastructure.Extension
