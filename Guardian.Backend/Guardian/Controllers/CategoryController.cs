@@ -21,7 +21,7 @@ namespace Guardian.Controllers
 
         /// <summary>
         /// Get products for given category. Paginated + sorted managed by parameters.
-        /// Limit for pageSize is 100, default is set to 10
+        /// Limit for pageSize is 50, default is set to 20
         /// </summary>
         /// <param name="category">Category for which you need to fetch games</param>
         /// <returns></returns>
