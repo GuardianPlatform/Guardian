@@ -6,7 +6,9 @@
 ## Table of Contents
 1. [Guardian](#guardian)
 2. [How to run project](#how-to-run-project)
-4. [Project description (PL)](#project-description-pl)
+3. [URLs](#urls)
+4. [Authentication](#authentication)
+5. [Project description (PL)](#project-description-pl)
 
 ## Guardian
 
@@ -18,6 +20,32 @@ Guardian is a fanmade video game digital distribution service inspired by Valve 
 - Start docker
 - Start run.bat
 - Check if kafka container is running. Sometimes it stops due to internal problem
+
+## URLs
+- Guardian.Api:
+   - http://localhost:5001/OpenAPI/index.html
+   - http://localhost:5001/healthcheck-ui#/healthchecks
+   - http://localhost:5001/healthcheck
+- Guardian.Logging.Api:
+  - https://localhost:5003/swagger/index.html
+  - http://localhost:5002/swagger/index.html
+
+
+## Authentication
+Auth is required only for Guardian.Api. There are 2 important requests:
+
+![image](https://user-images.githubusercontent.com/20387650/179373949-96237111-f519-4cbd-a84c-a99d1ad8a942.png)
+
+- register - we can create a new user, with a basic role
+- authenticate - we can get a JWToken and authorize ourselves. To authorize click this button
+
+![image](https://user-images.githubusercontent.com/20387650/179374107-bf0dfe2e-e3fa-4dfd-8a69-b5e2a744cf9f.png)
+
+Accounts created by default:
+```
+superadmin@gmail.com/Password@123
+basicuser@gmail.com/Password@123
+```
 
 # Project description (PL):<br>
 Guardian – jest to projekt cyfrowej dystrybucji gier. Jego główną funkcjonalnością jest możliwość przeglądania, listowania po kategoriach oraz dodawanie przez twórców nowych gier. Celem tej aplikacji jest danie zwłaszcza twórcom niezależnym miejsca na reklamę swojej twórczości. 
