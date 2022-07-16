@@ -12,6 +12,7 @@ using Xunit;
 
 namespace Guardian.Test.Integration
 {
+    [Collection("IntegrationTests")]
     public class CategoryIntegrationTests
     {
         private const string Root = "api";
@@ -62,8 +63,5 @@ namespace Guardian.Test.Integration
 
             response.Should().BeEmpty();
         }
-
-
-        [Fact]
     }
 }

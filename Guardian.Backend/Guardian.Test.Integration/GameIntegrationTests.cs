@@ -11,6 +11,7 @@ using Xunit;
 
 namespace Guardian.Test.Integration
 {
+    [Collection("IntegrationTests")]
     public class GameIntegrationTests
     {
         private const string Root = "api";
