@@ -6,4 +6,6 @@ dotnet ef database update --context IdentityContext --project ./Guardian.Backend
 start dotnet run --project ./Guardian.Backend/Guardian/Guardian.csproj
 start dotnet run --project ./Guardian.Backend/Guardian.Microservices/Guardian.Logging.Api/Guardian.Logging.Api.csproj
 start dotnet run --project ./Guardian.Backend/Guardian.Workers/Guardian.Worker.Email/Guardian.Worker.Email.csproj
-start npm --prefix ./guardian-frontend start
+cd ./guardian-frontend 
+call npm install
+start npm start
