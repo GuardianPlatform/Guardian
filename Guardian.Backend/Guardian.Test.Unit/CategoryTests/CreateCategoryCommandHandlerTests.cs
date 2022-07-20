@@ -44,14 +44,10 @@ namespace Guardian.Test.Unit.CategoryTests
             await context.SaveChangesAsync();
 
             int numberOfGames = 1;
-            
-            var categoriesQuery = new GetAllCategoriesQuery() { };
 
-            var categoriesQueryService = new GetAllCategoriesQuery.GetAllCategoriesQueryHandler(context);
-            
-            var result = await categoriesQueryService.Handle(categoriesQuery, default);
+            var result = context.Categories.Count();
 
-            Assert.AreEqual(numberOfGames, result.Count());
+            Assert.AreEqual(numberOfGames, result);
         }
 
         [Test]
@@ -72,13 +68,9 @@ namespace Guardian.Test.Unit.CategoryTests
 
             int numberOfGames = 3;
 
-            var categoriesQuery = new GetAllCategoriesQuery() { };
+            var result = context.Categories.Count();
 
-            var categoriesQueryService = new GetAllCategoriesQuery.GetAllCategoriesQueryHandler(context);
-
-            var result = await categoriesQueryService.Handle(categoriesQuery, default);
-
-            Assert.AreEqual(numberOfGames, result.Count());
+            Assert.AreEqual(numberOfGames, result);
         }
     }
 }
