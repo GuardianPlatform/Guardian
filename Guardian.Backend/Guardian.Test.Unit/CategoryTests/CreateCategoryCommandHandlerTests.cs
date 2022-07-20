@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Database;
 using Guardian.Service.Features.Category.Commands;
+using Guardian.Service.Features.Category.Queries;
 using Guardian.Service.Features.Game.Queries;
 using Guardian.Test.Unit.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,26 @@ namespace Guardian.Test.Unit.CategoryTests
 
             var request = new CreateCategoryCommand("Kategoria");
         }
-
         
+        [Test]
+        public async Task CreateCategoryTest_IsOneCategoryCreated()
+        {
+            var context = TestDbContext.TestDbContextMethod(out var dbContextOptions);
+
+            var request = new CreateCategoryCommand("Kategoria");
+            context.Add(new Category() {CategoryName = $"{request.CategoryName}"});
+
+            await context.SaveChangesAsync();
+
+            int numberOfGames = 1;
+            
+            var categoriesQuery = new GetAllCategoriesQuery() { };
+
+            var categoriesQueryService = new GetAllCategoriesQuery.GetAllCategoriesQueryHandler(context);
+            
+            var result = await categoriesQueryService.Handle(categoriesQuery, default);
+
+            Assert.AreEqual(numberOfGames, result.Count());
+        }
     }
 }
