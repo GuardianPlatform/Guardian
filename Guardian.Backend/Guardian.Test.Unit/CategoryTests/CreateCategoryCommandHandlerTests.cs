@@ -53,5 +53,32 @@ namespace Guardian.Test.Unit.CategoryTests
 
             Assert.AreEqual(numberOfGames, result.Count());
         }
+
+        [Test]
+        public async Task CreateCategoryTest_IsFewCategoryCreated()
+        {
+            var context = TestDbContext.TestDbContextMethod(out var dbContextOptions);
+
+            var request1 = new CreateCategoryCommand("Kategoria1");
+            context.Add(new Category() { CategoryName = $"{request1.CategoryName}" });
+
+            var request2 = new CreateCategoryCommand("Kategoria2");
+            context.Add(new Category() { CategoryName = $"{request2.CategoryName}" });
+
+            var request3 = new CreateCategoryCommand("Kategoria3");
+            context.Add(new Category() { CategoryName = $"{request3.CategoryName}" });
+
+            await context.SaveChangesAsync();
+
+            int numberOfGames = 3;
+
+            var categoriesQuery = new GetAllCategoriesQuery() { };
+
+            var categoriesQueryService = new GetAllCategoriesQuery.GetAllCategoriesQueryHandler(context);
+
+            var result = await categoriesQueryService.Handle(categoriesQuery, default);
+
+            Assert.AreEqual(numberOfGames, result.Count());
+        }
     }
 }
