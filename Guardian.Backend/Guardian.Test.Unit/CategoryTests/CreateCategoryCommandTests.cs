@@ -17,7 +17,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Guardian.Test.Unit.CategoryTests
 {
     
-    public class CreateCategoryCommandHandlerTests
+    public class CreateCategoryCommandTests
     {
         [Test]
         [ExpectedException(typeof(Exception),

@@ -13,7 +13,7 @@ using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace Guardian.Test.Unit.CategoryTests
 {
-    public class UpdateCategoryCommandHandlerTests
+    public class UpdateCategoryCommandTests
     {
 
         [Test]
