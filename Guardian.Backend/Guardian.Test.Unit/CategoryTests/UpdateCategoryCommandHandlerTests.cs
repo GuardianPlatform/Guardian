@@ -41,18 +41,9 @@ namespace Guardian.Test.Unit.CategoryTests
 
             await context.SaveChangesAsync();
 
-
-            var categoriesQuery = new GetAllCategoriesQuery();
-
-            var categoriesQueryService = new GetAllCategoriesQuery.GetAllCategoriesQueryHandler(context);
-
-
             string defaultName = "Nowa Kategoria";
 
-            var result = await categoriesQueryService.Handle(categoriesQuery, default);
-            
-
-            Assert.AreEqual(defaultName, result.FirstOrDefault().CategoryName);
+            Assert.IsTrue(category.CategoryName == defaultName);
         }
     }
 }
