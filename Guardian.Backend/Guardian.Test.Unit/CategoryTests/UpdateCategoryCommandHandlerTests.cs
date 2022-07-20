@@ -25,8 +25,6 @@ namespace Guardian.Test.Unit.CategoryTests
 
             await context.SaveChangesAsync();
 
-            
-
             var request = new UpdateCategoryCommand()
             {
                 CategoryName = "Nowa Kategoria",
@@ -37,9 +35,12 @@ namespace Guardian.Test.Unit.CategoryTests
 
             category.CategoryName = request.CategoryName;
 
+            context.ChangeTracker.Clear();
+
             context.Update(category);
 
             await context.SaveChangesAsync();
+
 
             var categoriesQuery = new GetAllCategoriesQuery();
 
