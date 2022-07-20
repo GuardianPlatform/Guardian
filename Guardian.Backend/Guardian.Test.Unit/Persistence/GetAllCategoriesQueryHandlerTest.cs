@@ -13,7 +13,7 @@ using Org.BouncyCastle.Math.EC.Rfc7748;
 namespace Guardian.Test.Unit.Persistence
 {
         
-    public class CategoriesControllerTests
+    public class GetAllCategoriesQueryHandlerTest
     {
 
         [Test]
@@ -54,7 +54,6 @@ namespace Guardian.Test.Unit.Persistence
             Assert.AreEqual(numberOfGames, result.Count());
         }
 
-        [Test]
-        public async Task 
+        
     }
 }
