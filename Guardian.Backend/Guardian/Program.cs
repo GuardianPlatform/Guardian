@@ -15,13 +15,9 @@ namespace Guardian
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls("http://localhost")
+                        .UseUrls("http://localhost:5001;https://localhost:5000")
                         .UseStartup<Startup>()
-                        .UseKestrel(x =>
-                        {
-                            //x.ListenLocalhost(80);
-                            x.ListenLocalhost(5001);
-                        })
+                        .UseKestrel()
                         .UseIIS();
                 });
     }

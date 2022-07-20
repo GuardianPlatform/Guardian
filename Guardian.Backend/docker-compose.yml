@@ -7,8 +7,16 @@ services:
       context: .
       dockerfile: Guardian/Dockerfile
 
+  guardian.worker.email:
+    image: ${DOCKER_REGISTRY-}guardianworkeremail
+    build:
+      context: .
+      dockerfile: Guardian.Workers/Guardian.Worker.Email/Dockerfile
+
+
   guardian.logging.api:
     image: ${DOCKER_REGISTRY-}guardianloggingapi
     build:
       context: .
       dockerfile: Guardian.Microservices/Guardian.Logging.Api/Dockerfile
+

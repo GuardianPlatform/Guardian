@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Infrastructure.Communication;
-using Guardian.Logging.Api;
+using Guardian.Logging.Contract;
 using MediatR;
 using Newtonsoft.Json;
 

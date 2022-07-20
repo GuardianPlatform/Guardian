@@ -8,19 +8,19 @@ using Guardian.Infrastructure.Database;
 using Guardian.Service.Features.Game.Queries;
 using System;
 
-namespace Guardian.Test.Unit.Persistence
+namespace Guardian.Test.Unit
 {
 
-    public class GameControllerTests
+    public class GetAllGamesQueryHandlerTests
     {
-        
+
         [Test]
         public async Task PaginationTest_FirstPageThreeItems()
         {
-               DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-        var context = new ApplicationDbContext(dbContextOptions);
+            DbContextOptions<ApplicationDbContext> dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+             .Options;
+            var context = new ApplicationDbContext(dbContextOptions);
 
             context.Add(new Game { Name = "gra1", Description = "dsc1", Author = "aa1" });
             context.Add(new Game { Name = "gra2", Description = "dsc2", Author = "aa2" });

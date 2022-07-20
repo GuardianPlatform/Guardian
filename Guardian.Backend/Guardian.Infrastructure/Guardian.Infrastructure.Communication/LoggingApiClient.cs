@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Guardian.Domain.Settings;
-using Guardian.Logging.Api;
 using Guardian.Logging.Contract;
 using Microsoft.Extensions.Options;
 

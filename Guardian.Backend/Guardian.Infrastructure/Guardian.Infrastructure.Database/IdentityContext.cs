@@ -1,7 +1,7 @@
 ﻿using Guardian.Domain.Entities;
 using Guardian.Infrastructure.Database.EntityConfiguration;
 using Guardian.Infrastructure.Database.Seeds.ApplicationDbContext;
-using Guardian.Infrastructure.Database.Seeds.Contexts;
+using Guardian.Infrastructure.Database.Seeds.IdentityContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

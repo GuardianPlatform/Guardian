@@ -8,18 +8,21 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Guardian/Guardian.csproj", "Guardian/"]
-COPY ["Guardian.Infrastructure/Guardian.Infrastructure.csproj", "Guardian.Infrastructure/"]
-COPY ["Guardian.Service/Guardian.Service.csproj", "Guardian.Service/"]
-COPY ["Guardian.Persistence/Guardian.Persistence.csproj", "Guardian.Persistence/"]
+COPY ["Guardian.Infrastructure/Guardian.Infrastructure/Guardian.Infrastructure.csproj", "Guardian.Infrastructure/Guardian.Infrastructure/"]
 COPY ["Guardian.Domain/Guardian.Domain.csproj", "Guardian.Domain/"]
+COPY ["Guardian.Service/Guardian.Service.csproj", "Guardian.Service/"]
+COPY ["Guardian.Infrastructure/Guardian.Infrastructure.Communication/Guardian.Infrastructure.Communication.csproj", "Guardian.Infrastructure/Guardian.Infrastructure.Communication/"]
+COPY ["Guardian.Microservices/Guardian.Logging.Contract/Guardian.Logging.Contract.csproj", "Guardian.Microservices/Guardian.Logging.Contract/"]
+COPY ["Guardian.Infrastructure/Guardian.Infrastructure.Database/Guardian.Infrastructure.Database.csproj", "Guardian.Infrastructure/Guardian.Infrastructure.Database/"]
+COPY ["Guardian.Infrastructure/Guardian.Infrastructure.Email/Guardian.Infrastructure.Email.csproj", "Guardian.Infrastructure/Guardian.Infrastructure.Email/"]
+COPY ["Guardian.Infrastructure/Guardian.Infrastructure.EventHub/Guardian.Infrastructure.EventHub.csproj", "Guardian.Infrastructure/Guardian.Infrastructure.EventHub/"]
 RUN dotnet restore "Guardian/Guardian.csproj"
-RUN dotnet dev-certs https
 COPY . .
 WORKDIR "/src/Guardian"
 RUN dotnet build "Guardian.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Guardian.csproj" -c Release -o /app/publish
+RUN dotnet publish "Guardian.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
