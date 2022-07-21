@@ -24,10 +24,12 @@ namespace Guardian.Test.Unit.CategoryTests
         {
             const string exceptionMessage = "Category with given name already exists";
             var context = TestDbContext.TestDbContextMethod(out var dbContextOptions);
+            context.Add(new Category { CategoryName = "Kategoria" });
+            await context.SaveChangesAsync();
             var service = new CreateCategoryCommand.CreateCategoryCommandHandler(context);
             var request = new CreateCategoryCommand("Kategoria");
 
-            await service.Handle(request, default);
+           
             Exception myException = Assert.ThrowsAsync<Exception>(async () => await service.Handle(request, default));
 
             Assert.AreEqual(exceptionMessage, myException.Message);
