@@ -19,31 +19,22 @@ namespace Guardian.Test.Unit.CategoryTests
         [Test]
         public async Task UpdateCategoryTest_IsCategoryUpdated()
         {
+            const string expectedName = "Nowa Kategoria";
             var context = TestDbContext.TestDbContextMethod(out var dbContextOptions);
-
-            context.Add(new Category {CategoryName = "Kategoria", Id = 0});
-
+            context.Add(new Category {CategoryName = "Kategoria"});
             await context.SaveChangesAsync();
-
             var request = new UpdateCategoryCommand()
             {
                 CategoryName = "Nowa Kategoria",
-                Id = 0
+                Id = 1
             };
-
-            var category = context.Categories.FirstOrDefault(c => c.CategoryName == "Kategoria");
-
-            category.CategoryName = request.CategoryName;
-
+            var service = new UpdateCategoryCommand.UpdateCategoryCommandHandler(context); 
+            
             context.ChangeTracker.Clear();
-
-            context.Update(category);
-
-            await context.SaveChangesAsync();
-
-            string defaultName = "Nowa Kategoria";
-
-            Assert.IsTrue(category.CategoryName == defaultName);
+            await service.Handle(request, default);
+            var result = context.Categories.First();
+            
+            Assert.AreEqual(expectedName, result.CategoryName);
         }
     }
 }

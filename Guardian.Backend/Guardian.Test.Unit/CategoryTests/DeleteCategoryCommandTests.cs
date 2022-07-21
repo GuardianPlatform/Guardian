@@ -17,25 +17,19 @@ namespace Guardian.Test.Unit.CategoryTests
         [Test]
         public async Task DeleteCategoryCommandHandler_CanDeleteCategory()
         {
+            const int expectedNumberOfCategories = 0;
             var context = TestDbContext.TestDbContextMethod(out var dbContextOptions);
-            
-            context.Add(new Category {CategoryName = "Kategoria", Id = 0});
-            
+            context.Add(new Category {CategoryName = "Kategoria"});
             await context.SaveChangesAsync();
+            var request = new DeleteCategoryCommand() {Id = 1};
+            var service = new DeleteCategoryCommand.DeleteCategoryCommandHandler(context);
 
-            var category = context.Categories.FirstOrDefault(name => name.CategoryName == "Kategoria");
             context.ChangeTracker.Clear();
+            await service.Handle(request, default);
 
-            var request = new DeleteCategoryCommand();
+            
 
-            request.Id = category.Id;
-            context.Remove(category);
-
-            await context.SaveChangesAsync();
-
-            int numberOfCategories = 0;
-
-            Assert.AreEqual(numberOfCategories, context.Categories.Count());
+            Assert.AreEqual(expectedNumberOfCategories, context.Categories.Count());
 
         }
     }
